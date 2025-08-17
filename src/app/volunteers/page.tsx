@@ -3,31 +3,37 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Check, Gamepad2, Gift, Handshake, ShieldQuestion, Star, Users } from "lucide-react";
+import { Check, Gamepad2, Gift, Handshake, Shield, Star, Users, Code, Heart } from "lucide-react";
 
 const volunteerRoles = [
     {
-      role: "Game Facilitator",
-      description: "Be the expert at one of our game stations. You'll explain rules, guide players, and keep the energy high.",
-      icon: Gamepad2
+      role: "Registration & Door Manager",
+      description: "The flirty first face of the event, welcoming people in and making them feel special.",
+      icon: Heart
     },
     {
-      role: "Timekeeper & Host",
-      description: "Help players rotate smoothly between stations. You'll be the friendly face ensuring everyone is on schedule and having fun.",
-      icon: Handshake
-    },
-    {
-      role: "Setup & Teardown Crew",
-      description: "The backbone of the event! Help us prepare the space before and clean up after, making the magic happen.",
+      role: "Set Up & Tear Down Crew",
+      description: "Strong, energetic people who aren't afraid to get their hands dirty. I promise to make it worth your while. 😉",
       icon: Star
+    },
+    {
+      role: "Safety & Security",
+      description: "It's always a community effort to keep things safe, but this person is the designated point of contact. Your leadership will be invaluable.",
+      icon: Shield
+    },
+    {
+      role: "Nerdy Web Developers & Sys Admins",
+      description: "I have a domain and a self-hosted server, so if you're into that sort of thing, I've got a special place for you on the team.",
+      icon: Code
     }
   ];
   
   const volunteerBenefits = [
     "Free entry to the event",
-    "Exclusive early access to games",
-    "A special thank-you gift",
-    "Become a core part of our community"
+    "Become an integral part of the team",
+    "Natural leadership development opportunities",
+    "Grow together as a community",
+    "Note: There's no guaranteed thank you gift either"
   ];
 
 export default function VolunteersPage() {
@@ -37,7 +43,7 @@ export default function VolunteersPage() {
                 <Users className="w-16 h-16 mx-auto text-primary mb-4" />
                 <h1 className="text-4xl md:text-5xl font-extrabold font-headline">Join Our Volunteer Team!</h1>
                 <p className="max-w-3xl mx-auto text-lg text-muted-foreground mt-4">
-                    Volunteers are the heart of our game nights. Help us create an unforgettable experience and enjoy some great perks along the way.
+                    Building a great community takes a village, and I'm looking for a handful of amazing volunteers to help me bring these events to life. Not only will you get free entry to events, but you'll also be an integral part of the team. The more you get involved, the more you'll become a natural leader—that's how we grow together.
                 </p>
             </div>
 
@@ -61,7 +67,7 @@ export default function VolunteersPage() {
                             <ul className="space-y-3">
                                 {volunteerBenefits.map(benefit => (
                                     <li key={benefit} className="flex items-center gap-3">
-                                        <Gift className="w-5 h-5 text-accent" />
+                                        <Gift className="w-5 h-5 text-accent flex-shrink-0" />
                                         <span>{benefit}</span>
                                     </li>
                                 ))}
