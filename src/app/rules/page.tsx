@@ -48,11 +48,11 @@ export default function RulesPage() {
   return (
     <div className='container mx-auto px-4 py-8 md:py-12'>
       <div className='mb-12 text-center'>
-        <Gavel className='mx-auto mb-4 h-16 w-16 text-primary' />
+        <Gavel className='text-primary mx-auto mb-4 h-16 w-16' />
         <h1 className='font-headline text-4xl font-extrabold md:text-5xl'>
           Rules & Guidelines
         </h1>
-        <p className='mx-auto mt-4 max-w-3xl text-lg text-muted-foreground'>
+        <p className='text-muted-foreground mx-auto mt-4 max-w-3xl text-lg'>
           To ensure a fun, fair, and safe experience for everyone, please
           familiarize yourself with our rules.
         </p>
@@ -62,16 +62,16 @@ export default function RulesPage() {
         {ruleSections.map(section => (
           <Card
             key={section.title}
-            className='shadow-lg transition-colors hover:border-primary'
+            className='hover:border-primary shadow-lg transition-colors'
           >
             <CardHeader className='flex flex-row items-center gap-4'>
-              <section.icon className='h-8 w-8 flex-shrink-0 text-primary' />
+              <section.icon className='text-primary h-8 w-8 flex-shrink-0' />
               <CardTitle className='font-headline text-2xl font-bold'>
                 {section.title}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className='list-inside list-disc space-y-3 text-muted-foreground'>
+              <ul className='text-muted-foreground list-inside list-disc space-y-3'>
                 {section.points.map((point, index) => (
                   <li key={index}>{point}</li>
                 ))}

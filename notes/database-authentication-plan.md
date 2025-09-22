@@ -1,19 +1,23 @@
 # Database & Authentication Integration Plan
 
 ## Overview
+
 This document outlines the current state and comprehensive plan for integrating database functionality and user authentication into Game Night Central using a vendor-agnostic approach.
 
 ## Architecture Decision
 
 ### 🎯 New Approach: ORM + Environment-Based Configuration
+
 Instead of direct Firebase integration, we'll use:
+
 - **Prisma ORM** for database abstraction
 - **SQLite** for local development (no setup required)
-- **PostgreSQL** for production (scalable, reliable) 
+- **PostgreSQL** for production (scalable, reliable)
 - **Environment-based configuration** for easy switching
 - **Migration and seed scripts** for data management
 
 ### ✅ Benefits of This Approach
+
 - **No vendor lock-in** - Easy to switch databases
 - **Local development** - SQLite runs without configuration
 - **Type safety** - Full TypeScript integration with Prisma
@@ -24,6 +28,7 @@ Instead of direct Firebase integration, we'll use:
 ## Current State Analysis
 
 ### ✅ What's Already in Place
+
 - **Data Structures** - Well-defined schemas in `docs/data-structures.md`
 - **Form Components** - React Hook Form with Zod validation
 - **UI Components** - Complete Shadcn UI component library
@@ -31,6 +36,7 @@ Instead of direct Firebase integration, we'll use:
 - **Next.js** - Built-in API routes support
 
 ### ❌ What's Missing
+
 - **Database Connection** - No ORM or database configuration
 - **Authentication System** - No login/signup functionality
 - **Data Persistence** - All data is currently static/mock
@@ -42,6 +48,7 @@ Instead of direct Firebase integration, we'll use:
 ### Phase 1: Foundation Setup
 
 #### 1.1 Prisma ORM Setup
+
 ```bash
 # Install Prisma and database dependencies
 npm install prisma @prisma/client
@@ -50,6 +57,7 @@ npm install next-auth @auth/prisma-adapter  # For authentication
 ```
 
 #### 1.2 Database Configuration
+
 ```typescript
 // prisma/schema.prisma
 generator client {
@@ -228,6 +236,7 @@ enum IdeaStatus {
 ```
 
 #### 1.3 Environment Configuration
+
 ```env
 # .env.local (Development)
 DATABASE_URL="file:./dev.db"
@@ -243,43 +252,44 @@ NEXTAUTH_SECRET=your-secret-key
 ### Phase 2: Authentication System
 
 #### 2.1 NextAuth.js Setup
+
 ```typescript
 // src/lib/auth.ts
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { prisma } from "@/lib/prisma"
-import bcrypt from "bcryptjs"
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma } from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-      name: "credentials",
+      name: 'credentials',
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null
+          return null;
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
-        })
+          where: { email: credentials.email },
+        });
 
         if (!user) {
-          return null
+          return null;
         }
 
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
           user.password
-        )
+        );
 
         if (!isPasswordValid) {
-          return null
+          return null;
         }
 
         return {
@@ -287,48 +297,50 @@ export default NextAuth({
           email: user.email,
           name: user.name,
           role: user.role,
-        }
-      }
-    })
+        };
+      },
+    }),
   ],
   session: {
-    strategy: "jwt"
+    strategy: 'jwt',
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role
+        token.role = user.role;
       }
-      return token
+      return token;
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.sub!
-        session.user.role = token.role as string
+        session.user.id = token.sub!;
+        session.user.role = token.role as string;
       }
-      return session
-    }
-  }
-})
+      return session;
+    },
+  },
+});
 ```
 
 #### 2.2 Authentication Components
+
 - Login page (`src/app/auth/login/page.tsx`)
 - Signup page (`src/app/auth/signup/page.tsx`)
 - Protected route wrapper component
 - Role-based access control
 
 #### 2.3 Database Seed Script
+
 ```typescript
 // prisma/seed.ts
-import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
   // Create admin user
-  const hashedPassword = await bcrypt.hash('admin123', 12)
+  const hashedPassword = await bcrypt.hash('admin123', 12);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@gamenight.com' },
     update: {},
@@ -338,7 +350,7 @@ async function main() {
       name: 'Admin User',
       role: 'ADMIN',
     },
-  })
+  });
 
   // Create sample event
   const event = await prisma.event.create({
@@ -347,117 +359,123 @@ async function main() {
       slug: 'weekly-game-night',
       date: new Date('2024-02-15T19:00:00Z'),
       duration: '3 hours',
-      description: 'Join us for our weekly game night featuring board games and card games.',
+      description:
+        'Join us for our weekly game night featuring board games and card games.',
       pricing: { men: 15, women: 15, couples: 25 },
       maxParticipants: 30,
-    }
-  })
+    },
+  });
 
-  console.log({ admin, event })
+  console.log({ admin, event });
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+  .catch(async e => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
 ```
 
 ### Phase 3: Data Layer Implementation
 
 #### 3.1 Prisma Client Setup
+
 ```typescript
 // src/lib/prisma.ts
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
+  prisma: PrismaClient | undefined;
+};
 
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
     log: ['query'],
-  })
+  });
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 ```
 
 #### 3.2 Repository Pattern with Prisma
+
 ```typescript
 // src/lib/repositories/events.ts
-import { prisma } from '@/lib/prisma'
-import { Event, EventStatus } from '@prisma/client'
+import { prisma } from '@/lib/prisma';
+import { Event, EventStatus } from '@prisma/client';
 
 export class EventRepository {
   static async getAll(): Promise<Event[]> {
     return prisma.event.findMany({
       where: { status: EventStatus.PUBLISHED },
       include: { categories: true },
-      orderBy: { date: 'asc' }
-    })
+      orderBy: { date: 'asc' },
+    });
   }
 
   static async getById(id: string): Promise<Event | null> {
     return prisma.event.findUnique({
       where: { id },
-      include: { categories: true }
-    })
+      include: { categories: true },
+    });
   }
 
-  static async create(eventData: Omit<Event, 'id' | 'createdAt' | 'updatedAt'>): Promise<Event> {
+  static async create(
+    eventData: Omit<Event, 'id' | 'createdAt' | 'updatedAt'>
+  ): Promise<Event> {
     return prisma.event.create({
       data: eventData,
-      include: { categories: true }
-    })
+      include: { categories: true },
+    });
   }
 
   static async update(id: string, eventData: Partial<Event>): Promise<Event> {
     return prisma.event.update({
       where: { id },
       data: eventData,
-      include: { categories: true }
-    })
+      include: { categories: true },
+    });
   }
 
   static async delete(id: string): Promise<void> {
-    await prisma.event.delete({ where: { id } })
+    await prisma.event.delete({ where: { id } });
   }
 }
 ```
 
 #### 3.3 API Routes
+
 ```typescript
 // src/app/api/events/route.ts
-import { NextRequest, NextResponse } from 'next/server'
-import { EventRepository } from '@/lib/repositories/events'
+import { NextRequest, NextResponse } from 'next/server';
+import { EventRepository } from '@/lib/repositories/events';
 
 export async function GET() {
   try {
-    const events = await EventRepository.getAll()
-    return NextResponse.json(events)
+    const events = await EventRepository.getAll();
+    return NextResponse.json(events);
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to fetch events' },
       { status: 500 }
-    )
+    );
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const eventData = await request.json()
-    const event = await EventRepository.create(eventData)
-    return NextResponse.json(event, { status: 201 })
+    const eventData = await request.json();
+    const event = await EventRepository.create(eventData);
+    return NextResponse.json(event, { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to create event' },
       { status: 500 }
-    )
+    );
   }
 }
 ```
@@ -465,30 +483,35 @@ export async function POST(request: NextRequest) {
 ### Phase 4: Feature Integration
 
 #### 4.1 Event Management
+
 - Replace static events with API calls
 - Add real-time updates with SWR or TanStack Query
 - Implement event creation/editing for admins
 - Server-side rendering with data fetching
 
 #### 4.2 Registration System
+
 - Connect signup form to API routes
 - Implement registration approval workflow
 - Add email notifications with services like Resend
 - Form validation with Zod schemas
 
 #### 4.3 Admin Dashboard
+
 - Real registration data display
 - Bulk approval/denial actions
 - Export functionality with CSV generation
 - Analytics and reporting with charts
 
 #### 4.4 Volunteer System
+
 - Database-backed volunteer applications
 - Role assignment and management
 - Application review workflow
 - Email notifications for status updates
 
 #### 4.5 Community Features
+
 - Database storage for ideas and polls
 - Vote tracking and analytics
 - User contribution history
@@ -497,24 +520,28 @@ export async function POST(request: NextRequest) {
 ## Testing Strategy
 
 ### Unit Tests
+
 - Repository functions with mocked Prisma
 - Authentication utilities (password hashing, JWT)
 - Data transformation functions
 - API route handlers
 
 ### Integration Tests
+
 - Database connection and queries
 - Authentication flow with NextAuth
 - Form submissions with validation
 - API endpoints with real database
 
 ### E2E Tests
+
 - Complete user registration flow
 - Event creation and registration
 - Admin approval workflow
 - Database seeding and migrations
 
 ### Database Testing
+
 - Migration testing across environments
 - Seed data consistency
 - Rollback scenarios
@@ -523,6 +550,7 @@ export async function POST(request: NextRequest) {
 ## Security Considerations
 
 ### Authentication Security
+
 - Password hashing with bcrypt
 - JWT session management with NextAuth
 - Rate limiting for auth attempts
@@ -530,6 +558,7 @@ export async function POST(request: NextRequest) {
 - Session timeout handling
 
 ### Database Security
+
 - SQL injection prevention through Prisma
 - Input validation with Zod schemas
 - API route protection and authorization
@@ -537,6 +566,7 @@ export async function POST(request: NextRequest) {
 - Database connection encryption
 
 ### User Data Protection
+
 - GDPR compliance considerations
 - Data retention policies
 - User consent management
@@ -546,11 +576,13 @@ export async function POST(request: NextRequest) {
 ## Migration Strategy
 
 ### Data Migration
+
 1. **Static to Dynamic**: Replace hardcoded data with database queries
 2. **Mock to Real**: Update all mock data with real database calls
 3. **Component Updates**: Modify components to handle loading states and errors
 
 ### Backward Compatibility
+
 - Maintain current UI/UX during transition
 - Graceful fallbacks for missing data
 - Feature flags for new functionality
@@ -558,6 +590,7 @@ export async function POST(request: NextRequest) {
 ## Implementation Priority
 
 ### High Priority (Week 1-2)
+
 1. **Prisma setup** - Install and configure Prisma ORM
 2. **Database schema** - Create and run initial migration
 3. **Basic authentication** - NextAuth.js setup with credentials
@@ -565,6 +598,7 @@ export async function POST(request: NextRequest) {
 5. **Registration system** - Connect forms to database
 
 ### Medium Priority (Week 3-4)
+
 1. **Admin dashboard** - Real data management interface
 2. **User management** - Role-based access control
 3. **Volunteer system** - Application tracking
@@ -572,6 +606,7 @@ export async function POST(request: NextRequest) {
 5. **Email notifications** - Integration with services like Resend
 
 ### Low Priority (Week 5+)
+
 1. **Advanced analytics** - Charts and reporting
 2. **Bulk operations** - Mass data operations
 3. **Performance optimizations** - Query optimization, caching
@@ -581,11 +616,13 @@ export async function POST(request: NextRequest) {
 ## Files to Review
 
 ### Before Implementation
+
 1. **`docs/data-structures.md`** - Database schema requirements
 2. **`notes/database-authentication-plan.md`** - This implementation plan
 3. **`package.json`** - Current dependencies and scripts
 
 ### During Implementation
+
 1. **`prisma/schema.prisma`** - Database schema definition
 2. **`src/lib/prisma.ts`** - Prisma client setup
 3. **`src/lib/auth.ts`** - NextAuth configuration
@@ -593,6 +630,7 @@ export async function POST(request: NextRequest) {
 5. **`src/app/api/`** - API route handlers
 
 ### After Implementation
+
 1. **`src/app/auth/`** - Authentication pages
 2. **`src/app/admin/page.tsx`** - Updated admin dashboard
 3. **`src/app/signup/page.tsx`** - Updated registration system
@@ -602,6 +640,7 @@ export async function POST(request: NextRequest) {
 ## Success Metrics
 
 ### Functionality
+
 - [ ] All pages load data from database
 - [ ] User registration and login work
 - [ ] Admin can approve/deny registrations
@@ -609,12 +648,14 @@ export async function POST(request: NextRequest) {
 - [ ] All CRUD operations functional
 
 ### Performance
+
 - [ ] Page load times < 2 seconds
 - [ ] Database queries optimized
 - [ ] Proper loading states implemented
 - [ ] Error handling in place
 
 ### Security
+
 - [ ] Authentication required for protected routes
 - [ ] Proper user permissions enforced
 - [ ] Input validation working
@@ -653,6 +694,7 @@ npx tsx prisma/seed.ts
 ## Environment Setup
 
 ### Development (.env.local)
+
 ```env
 DATABASE_URL="file:./dev.db"
 NEXTAUTH_URL=http://localhost:3000
@@ -660,6 +702,7 @@ NEXTAUTH_SECRET=your-development-secret-key
 ```
 
 ### Production (.env.production)
+
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/gamenight"
 NEXTAUTH_URL=https://yourdomain.com

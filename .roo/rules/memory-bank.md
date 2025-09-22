@@ -1,11 +1,12 @@
 # 📄 Project Plan Template (VS Code + AI Agent)
 
-> *This document serves as a reference guide for the AI agent to understand the project context, navigate files, manage knowledge, and execute tasks efficiently without requiring real-time scanning.*
+> _This document serves as a reference guide for the AI agent to understand the project context, navigate files, manage knowledge, and execute tasks efficiently without requiring real-time scanning._
 
 ---
 
 ## 🔹 Table of Contents (TOC) – Top 3 Relevant Topics
-*(Use this section to quickly locate high-level topics)*
+
+_(Use this section to quickly locate high-level topics)_
 
 1. [Project Start & Tech Stack](#project-start--tech-stack)
 2. [Top 5 Commands](#top-5-commands)
@@ -18,6 +19,7 @@
 ## 🚀 Project Start & Tech Stack
 
 ### Frameworks & Libraries
+
 - **Tailwind CSS** → Used via `@tailwind` directives (`@include`)
 - **Shadcn UI** → Pre-built React components (installed, read-only)
 - **React** → Frontend framework used throughout
@@ -31,13 +33,13 @@
 
 The AI agent should prioritize these actions:
 
-| Command   | Purpose |
-|----------|--------|
+| Command  | Purpose                                              |
+| -------- | ---------------------------------------------------- |
 | `search` | Find content across files using keywords or patterns |
-| `read`   | Read file contents (e.g., `.ts`, `.tsx`, `.md`) |
-| `write`  | Modify or create new files (with caution) |
-| `save`   | Save changes after editing |
-| `list`   | List directory contents or available files |
+| `read`   | Read file contents (e.g., `.ts`, `.tsx`, `.md`)      |
+| `write`  | Modify or create new files (with caution)            |
+| `save`   | Save changes after editing                           |
+| `list`   | List directory contents or available files           |
 
 > 💡 Use `search` first before writing — always check if content already exists.
 
@@ -62,9 +64,11 @@ When tasked with learning a new concept or completing a task:
    - Example: `notes/forms-validation.md`
 
 2. **Search for existing knowledge**:
+
    ```bash
    search "forms validation"
    ```
+
    - If found, **read** and extend it.
    - If not found, **create** new note.
 
@@ -83,26 +87,32 @@ When tasked with learning a new concept or completing a task:
 ### How to Store & Retrieve Knowledge
 
 #### ✅ Create New Knowledge
+
 ```markdown
 # <Topic>
 
 ## Overview
+
 Brief description of the topic.
 
 ## Usage Examples
+
 Code snippets or usage patterns.
 
 ## Related Files
+
 - `src/components/form.tsx`
 - `src/hooks/useForm.ts`
 ```
 
 #### 🔍 Retrieve Knowledge
+
 - Use `search "<keyword>"` to locate related files.
 - Use `read notes/<topic>.md` to load stored knowledge.
 - Use `read README.md` to review project overview and TOC.
 
 #### 🔄 Update Knowledge
+
 - Append to existing `.md` files instead of creating duplicates.
 - Ensure consistency in naming and formatting.
 

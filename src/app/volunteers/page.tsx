@@ -51,11 +51,11 @@ export default function VolunteersPage() {
   return (
     <div className='container mx-auto px-4 py-8 md:py-12'>
       <div className='mb-12 text-center'>
-        <Users className='mx-auto mb-4 h-16 w-16 text-primary' />
+        <Users className='text-primary mx-auto mb-4 h-16 w-16' />
         <h1 className='font-headline text-4xl font-extrabold md:text-5xl'>
           Join Our Volunteer Team!
         </h1>
-        <p className='mx-auto mt-4 max-w-3xl text-lg text-muted-foreground'>
+        <p className='text-muted-foreground mx-auto mt-4 max-w-3xl text-lg'>
           Building a great community takes a village, and I'm looking for a
           handful of amazing volunteers to help me bring these events to life.
           Not only will you get free entry to events, but you'll also be an
@@ -66,26 +66,26 @@ export default function VolunteersPage() {
 
       <div className='grid grid-cols-1 gap-12 lg:grid-cols-2'>
         <div>
-          <h2 className='mb-6 font-headline text-2xl font-bold'>
+          <h2 className='font-headline mb-6 text-2xl font-bold'>
             Volunteer Roles
           </h2>
           <div className='space-y-6'>
             {volunteerRoles.map(role => (
               <Card
                 key={role.role}
-                className='flex items-start gap-4 p-4 transition-colors hover:border-primary'
+                className='hover:border-primary flex items-start gap-4 p-4 transition-colors'
               >
-                <role.icon className='mt-1 h-12 w-12 flex-shrink-0 text-primary' />
+                <role.icon className='text-primary mt-1 h-12 w-12 flex-shrink-0' />
                 <div>
                   <h3 className='text-lg font-semibold'>{role.role}</h3>
-                  <p className='text-sm text-muted-foreground'>
+                  <p className='text-muted-foreground text-sm'>
                     {role.description}
                   </p>
                 </div>
               </Card>
             ))}
           </div>
-          <h2 className='mb-6 mt-8 font-headline text-2xl font-bold'>
+          <h2 className='font-headline mt-8 mb-6 text-2xl font-bold'>
             Volunteer Perks
           </h2>
           <Card className='bg-muted/30'>
@@ -93,7 +93,7 @@ export default function VolunteersPage() {
               <ul className='space-y-3'>
                 {volunteerBenefits.map(benefit => (
                   <li key={benefit} className='flex items-center gap-3'>
-                    <Gift className='h-5 w-5 flex-shrink-0 text-accent' />
+                    <Gift className='text-accent h-5 w-5 flex-shrink-0' />
                     <span>{benefit}</span>
                   </li>
                 ))}

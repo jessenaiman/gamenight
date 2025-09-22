@@ -4,7 +4,7 @@ import {
   Swords,
   DollarSign,
   Clock,
-  ListRules,
+  List,
   Gift,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -72,16 +72,16 @@ export default function EventPage() {
               <div className='absolute inset-0 bg-gradient-to-t from-black/80 to-transparent' />
               <div className='absolute bottom-0 left-0 p-6'>
                 <Badge>{eventData.date}</Badge>
-                <h1 className='mt-2 font-headline text-3xl font-extrabold text-white md:text-4xl'>
+                <h1 className='font-headline mt-2 text-3xl font-extrabold text-white md:text-4xl'>
                   {eventData.title}
                 </h1>
               </div>
             </div>
             <CardContent className='p-6'>
-              <h2 className='mb-4 font-headline text-2xl font-bold'>
+              <h2 className='font-headline mb-4 text-2xl font-bold'>
                 Event Format
               </h2>
-              <p className='mb-4 text-muted-foreground'>
+              <p className='text-muted-foreground mb-4'>
                 Get ready for a dynamic evening of fun! Players will be grouped
                 and rotate through three exciting game categories. You'll spend
                 about 20-30 minutes at each station, ensuring everyone gets to
@@ -91,14 +91,14 @@ export default function EventPage() {
                 {categories.map(category => (
                   <Card
                     key={category.name}
-                    className='flex flex-col transition-colors hover:border-primary'
+                    className='hover:border-primary flex flex-col transition-colors'
                   >
                     <CardHeader className='flex-row items-center gap-4'>
-                      <category.icon className='h-8 w-8 text-primary' />
+                      <category.icon className='text-primary h-8 w-8' />
                       <CardTitle className='text-xl'>{category.name}</CardTitle>
                     </CardHeader>
                     <CardContent className='flex-grow'>
-                      <p className='text-sm text-muted-foreground'>
+                      <p className='text-muted-foreground text-sm'>
                         {category.description}
                       </p>
                     </CardContent>
@@ -117,14 +117,14 @@ export default function EventPage() {
             </CardHeader>
             <CardContent className='space-y-4'>
               <div className='flex items-center gap-3'>
-                <Clock className='h-5 w-5 text-primary' />{' '}
+                <Clock className='text-primary h-5 w-5' />{' '}
                 <span>{eventData.duration} total</span>
               </div>
 
               <h3 className='flex items-center gap-2 pt-2 font-semibold'>
-                <DollarSign className='h-5 w-5 text-primary' /> Pricing
+                <DollarSign className='text-primary h-5 w-5' /> Pricing
               </h3>
-              <div className='flex justify-around rounded-md bg-muted/50 p-3 text-center text-sm'>
+              <div className='bg-muted/50 flex justify-around rounded-md p-3 text-center text-sm'>
                 <div>
                   <p className='text-lg font-bold'>${eventData.pricing.men}</p>
                   <p className='text-muted-foreground'>Men</p>
@@ -144,9 +144,9 @@ export default function EventPage() {
               </div>
 
               <h3 className='flex items-center gap-2 pt-2 font-semibold'>
-                <ListRules className='h-5 w-5 text-primary' /> Rules
+                <List className='text-primary h-5 w-5' /> Rules
               </h3>
-              <p className='text-sm text-muted-foreground'>
+              <p className='text-muted-foreground text-sm'>
                 Fair play is key! Follow rotation timers and respect all
                 players. Detailed rules available{' '}
                 <Link href='/rules' className='text-primary underline'>
@@ -156,9 +156,9 @@ export default function EventPage() {
               </p>
 
               <h3 className='flex items-center gap-2 pt-2 font-semibold'>
-                <Gift className='h-5 w-5 text-primary' /> What to Bring
+                <Gift className='text-primary h-5 w-5' /> What to Bring
               </h3>
-              <p className='text-sm text-muted-foreground'>
+              <p className='text-muted-foreground text-sm'>
                 Just your enthusiasm! Optional snacks to share are welcome.
               </p>
 
