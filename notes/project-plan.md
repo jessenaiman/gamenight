@@ -7,13 +7,13 @@
 ## 🔹 Table of Contents (TOC) – Top 5 Relevant Topics
 *(Use this section to quickly locate high-level topics)*
 
-1. [Project Start & Tech Stack](#project-start--tech-stack)
-2. [Top 5 Commands](#top-5-commands)
-3. [File Tree Structure](#file-tree-structure)
-4. [Learning Strategy](#learning-strategy)
-5. [Knowledge Management with Markdown](#knowledge-management-with-markdown)
-6. [Database & Authentication Plan](#database--authentication-plan)
-TODO: update TOC always
+1. [Project Start & Tech Stack](#-project-start--tech-stack)
+2. [Top 5 Commands](#-top-5-commands)
+3. [File Tree Structure](#-file-tree-structure)
+4. [Learning Strategy](#-learning-strategy)
+5. [Knowledge Management with Markdown](#-knowledge-management-with-markdown)
+6. [Database & Authentication Plan](#-database--authentication-plan)
+7. [Next Steps for AI Agent](#-next-steps-for-ai-agent)
 ---
 
 ## 🚀 Project Start & Tech Stack

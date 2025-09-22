@@ -1,13 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  ArrowRight,
-  CalendarDays,
-  Gamepad2,
-  MapPin,
-  Users,
-} from 'lucide-react';
+import { ArrowRight, Gamepad2, MapPin, Users } from 'lucide-react';
 
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';

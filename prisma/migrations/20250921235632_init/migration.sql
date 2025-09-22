@@ -1,3 +1,7 @@
+-- Migration: Initial schema setup
+SET QUOTED_IDENTIFIER ON;
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
 -- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL PRIMARY KEY,

@@ -1,11 +1,13 @@
 # AI Functionality
 
-## Overview
+Overview
+========
 Game Night Central includes AI-powered features for enhanced user experience and content generation.
 
 ## Current AI Implementation
 
-### Files
+Files
+-----
 - `src/ai/genkit.ts` - Google Genkit integration
 - `src/ai/dev.ts` - Development AI utilities
 

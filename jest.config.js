@@ -27,7 +27,7 @@ module.exports = {
       statements: 80,
     },
   },
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  setupFilesAfterEnv: [`${'<rootDir>'}/tests/setup.ts`],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@/components/(.*)$': '<rootDir>/src/components/$1',

@@ -13,7 +13,7 @@ import {
 import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/theme-toggle';
+
 import {
   Sheet,
   SheetContent,
@@ -33,7 +33,7 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
 
-  const NavLink = ({ href, label, icon: Icon, isMobile = false }) => (
+  const NavLink = ({ href, label, icon: Icon, isMobile = false }: { href: string; label: string; icon: any; isMobile?: boolean }) => (
     <Button
       asChild
       variant={pathname === href ? 'secondary' : 'ghost'}
@@ -61,7 +61,7 @@ export default function Header() {
           ))}
         </nav>
         <div className='flex flex-1 items-center justify-end space-x-2 md:flex-none'>
-          <ThemeToggle />
+          <AnimatedThemeToggler />
           <div className='md:hidden'>
             <Sheet>
               <SheetTrigger asChild>
