@@ -1,0 +1,83 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run ESLint
+      run: npm run lint
+      continue-on-error: false
+
+    - name: Check formatting
+      run: npm run format:check
+      continue-on-error: false
+
+    - name: Type checking
+      run: npm run typecheck
+      continue-on-error: false
+
+    - name: Run tests
+      run: npm run test
+      continue-on-error: false
+
+    - name: Run E2E tests
+      run: npm run test:e2e
+      continue-on-error: false
+
+    - name: Build application
+      run: npm run build
+      continue-on-error: false
+
+  code-quality:
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run quality check
+      run: npm run quality
+      continue-on-error: false
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run security audit
+      run: npm audit --audit-level=moderate
+      continue-on-error: true
+
+    - name: Check for vulnerabilities
+      run: |
+        if npm audit --audit-level=moderate | grep -q "found [1-9][0-9]* vulnerabilities"; then
+          echo "Security vulnerabilities found!"
+          exit 1
+        fi

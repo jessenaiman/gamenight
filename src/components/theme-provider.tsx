@@ -1,37 +1,38 @@
 // NOTE: This is a simplified version of next-themes.
 // In a real app, you'd want to use the library itself.
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 
-type Theme = "dark" | "light" | "system"
+type Theme = 'dark' | 'light' | 'system';
 
 type ThemeProviderProps = {
-  children: React.ReactNode
-  defaultTheme?: Theme
-  storageKey?: string
-  attribute?: string
-  enableSystem?: boolean
-  disableTransitionOnChange?: boolean
-}
+  children: React.ReactNode;
+  defaultTheme?: Theme;
+  storageKey?: string;
+  attribute?: string;
+  enableSystem?: boolean;
+  disableTransitionOnChange?: boolean;
+};
 
 type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+};
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: 'system',
   setTheme: () => null,
-}
+};
 
-const ThemeProviderContext = React.createContext<ThemeProviderState>(initialState)
+const ThemeProviderContext =
+  React.createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
-  storageKey = "ui-theme",
-  attribute = "class",
+  defaultTheme = 'system',
+  storageKey = 'ui-theme',
+  attribute = 'class',
   enableSystem = true,
   ...props
 }: ThemeProviderProps) {
@@ -40,54 +41,54 @@ export function ThemeProvider({
       return defaultTheme;
     }
     try {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme
+      return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
     } catch (e) {
-      return defaultTheme
+      return defaultTheme;
     }
-  })
+  });
 
   React.useEffect(() => {
-    const root = window.document.documentElement
+    const root = window.document.documentElement;
 
-    root.classList.remove("light", "dark")
+    root.classList.remove('light', 'dark');
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
         .matches
-        ? "dark"
-        : "light"
+        ? 'dark'
+        : 'light';
 
-      root.classList.add(systemTheme)
-      return
+      root.classList.add(systemTheme);
+      return;
     }
 
-    root.classList.add(theme)
-  }, [theme])
+    root.classList.add(theme);
+  }, [theme]);
 
   const value = {
     theme,
     setTheme: (theme: Theme) => {
       try {
-        localStorage.setItem(storageKey, theme)
+        localStorage.setItem(storageKey, theme);
       } catch (e) {
         // Continue
       }
-      setTheme(theme)
+      setTheme(theme);
     },
-  }
+  };
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
       {children}
     </ThemeProviderContext.Provider>
-  )
+  );
 }
 
 export const useTheme = () => {
-  const context = React.useContext(ThemeProviderContext)
+  const context = React.useContext(ThemeProviderContext);
 
   if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
+    throw new Error('useTheme must be used within a ThemeProvider');
 
-  return context
-}
+  return context;
+};

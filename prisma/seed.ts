@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
   // Create categories
@@ -32,7 +32,7 @@ async function main() {
         color: '#8B5CF6',
       },
     }),
-  ])
+  ]);
 
   // Create sample events
   const events = await Promise.all([
@@ -42,7 +42,8 @@ async function main() {
       create: {
         title: 'Weekly Game Night',
         slug: 'weekly-game-night',
-        description: 'Join us every Friday for our regular game night featuring a variety of board games and card games.',
+        description:
+          'Join us every Friday for our regular game night featuring a variety of board games and card games.',
         date: new Date('2024-10-04T19:00:00Z'),
         location: 'Community Center - Main Hall',
         maxCapacity: 30,
@@ -79,7 +80,8 @@ async function main() {
       create: {
         title: 'D&D Campaign Launch',
         slug: 'dnd-campaign',
-        description: 'Start of a new Dungeons & Dragons campaign for players of all experience levels.',
+        description:
+          'Start of a new Dungeons & Dragons campaign for players of all experience levels.',
         date: new Date('2024-10-20T18:00:00Z'),
         location: 'Library Meeting Room',
         maxCapacity: 6,
@@ -91,7 +93,7 @@ async function main() {
         categoryId: categories[2].id,
       },
     }),
-  ])
+  ]);
 
   // Create sample users
   const users = await Promise.all([
@@ -101,7 +103,8 @@ async function main() {
       create: {
         email: 'admin@gamenight.com',
         name: 'Admin User',
-        password: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        password:
+          '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         role: 'ADMIN',
       },
     }),
@@ -111,7 +114,8 @@ async function main() {
       create: {
         email: 'volunteer@gamenight.com',
         name: 'Volunteer User',
-        password: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        password:
+          '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         role: 'VOLUNTEER',
       },
     }),
@@ -121,11 +125,12 @@ async function main() {
       create: {
         email: 'user@gamenight.com',
         name: 'Regular User',
-        password: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        password:
+          '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         role: 'USER',
       },
     }),
-  ])
+  ]);
 
   // Create sample registrations
   await Promise.all([
@@ -155,7 +160,7 @@ async function main() {
         userId: users[1].id,
       },
     }),
-  ])
+  ]);
 
   // Create sample polls
   const poll = await prisma.poll.upsert({
@@ -169,7 +174,7 @@ async function main() {
       eventId: events[0].id,
       userId: users[0].id,
     },
-  })
+  });
 
   // Create poll options
   await Promise.all([
@@ -203,7 +208,7 @@ async function main() {
         pollId: poll.id,
       },
     }),
-  ])
+  ]);
 
   // Create sample ideas
   await Promise.all([
@@ -229,20 +234,20 @@ async function main() {
         userId: users[1].id,
       },
     }),
-  ])
+  ]);
 
-  console.log('Database seeded successfully!')
-  console.log(`Created ${categories.length} categories`)
-  console.log(`Created ${events.length} events`)
-  console.log(`Created ${users.length} users`)
+  console.log('Database seeded successfully!');
+  console.log(`Created ${categories.length} categories`);
+  console.log(`Created ${events.length} events`);
+  console.log(`Created ${users.length} users`);
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+  .catch(async e => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
