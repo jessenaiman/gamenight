@@ -1,17 +1,20 @@
 # Tech Stack & Dependencies
 
 ## Overview
+
 Game Night Central is built with modern web technologies for a robust, scalable application.
 
 ## Core Technologies
 
 ### Framework & Runtime
+
 - **Next.js 14+** → React framework with App Router
 - **React 18+** → UI library
 - **TypeScript** → Type-safe JavaScript
 - **Node.js** → JavaScript runtime
 
 ### Styling & UI
+
 - **Tailwind CSS** → Utility-first CSS framework
 - **Shadcn UI** → Component library built on Radix UI
 - **Radix UI** → Low-level, accessible UI primitives
@@ -19,6 +22,7 @@ Game Night Central is built with modern web technologies for a robust, scalable 
 - **Class Variance Authority** → Component variant management
 
 ### Development Tools
+
 - **ESLint** → Code linting
 - **PostCSS** → CSS processing
 - **TypeScript** → Type checking
@@ -26,6 +30,7 @@ Game Night Central is built with modern web technologies for a robust, scalable 
 ## Key Dependencies
 
 ### Production Dependencies
+
 ```json
 {
   "@radix-ui/react-accordion": "^1.1.2",
@@ -68,6 +73,7 @@ Game Night Central is built with modern web technologies for a robust, scalable 
 ```
 
 ### Development Dependencies
+
 ```json
 {
   "@types/node": "^22.0.0",
@@ -84,27 +90,32 @@ Game Night Central is built with modern web technologies for a robust, scalable 
 ## Project Structure
 
 ### UI Components (Read-only)
+
 - Located in `src/components/ui/`
 - Imported from Radix UI primitives
 - Should not be modified directly
 - Use shadcn's CLI to add/modify components
 
 ### Custom Components
+
 - Located in `src/components/`
 - Custom business logic components
 - Can be modified as needed
 
 ### Pages
+
 - Located in `src/app/` (App Router)
 - Each route has its own directory
 - Dynamic routes use `[slug]` pattern
 
 ### Utilities
+
 - Located in `src/lib/`
 - Shared utility functions
 - Configuration files
 
 ## Related Files
+
 - `package.json` - Dependencies and scripts
 - `tailwind.config.ts` - Tailwind configuration
 - `tsconfig.json` - TypeScript configuration

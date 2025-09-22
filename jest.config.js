@@ -35,4 +35,4 @@ module.exports = {
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   testTimeout: 10000,
-}
+};

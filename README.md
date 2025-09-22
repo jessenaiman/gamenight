@@ -11,6 +11,7 @@ To get started, take a look at `src/app/page.tsx`.
 This project uses a structured knowledge management system to maintain project context and documentation:
 
 ### Core Knowledge Files
+
 - [`notes/project-plan.md`](notes/project-plan.md) - Main project reference and guidelines
 - [`notes/gamenight-features.md`](notes/gamenight-features.md) - Feature documentation and overview
 - [`notes/tech-stack.md`](notes/tech-stack.md) - Technology stack and dependencies
@@ -18,6 +19,7 @@ This project uses a structured knowledge management system to maintain project c
 - [`notes/knowledge-management.md`](notes/knowledge-management.md) - Knowledge management system guide
 
 ### Documentation Sources
+
 - [`docs/blueprint.md`](docs/blueprint.md) - Original project blueprint and requirements
 - [`docs/data-structures.md`](docs/data-structures.md) - Database schema and data structure analysis
 
@@ -28,6 +30,7 @@ This project uses a structured knowledge management system to maintain project c
 3. **After completing work**: Document new features and update related knowledge files
 
 ### Quick Commands
+
 - Search for information: Use `search "keyword"` to find content across files
 - Read specific topics: Use `read notes/topic-name.md` to load stored knowledge
 - List knowledge files: Use `list notes/` to see all available knowledge files
@@ -73,6 +76,7 @@ For detailed feature information, see [`notes/gamenight-features.md`](notes/game
 **Architecture**: Prisma ORM with environment-based configuration
 
 ### Implementation Plan
+
 See [`notes/database-authentication-plan.md`](notes/database-authentication-plan.md) for the comprehensive roadmap including:
 
 - **Phase 1**: Prisma setup and database schema creation
@@ -81,6 +85,7 @@ See [`notes/database-authentication-plan.md`](notes/database-authentication-plan
 - **Phase 4**: Feature integration and testing
 
 ### Key Requirements
+
 - [ ] Prisma ORM installation and configuration
 - [ ] Database schema with migrations and seeds
 - [ ] NextAuth.js authentication system
@@ -89,7 +94,7 @@ See [`notes/database-authentication-plan.md`](notes/database-authentication-plan
 - [ ] Role-based access control
 
 ### Files to Review
+
 - [`docs/data-structures.md`](docs/data-structures.md) - Database schema requirements
 - [`notes/database-authentication-plan.md`](notes/database-authentication-plan.md) - Implementation roadmap
 - [`package.json`](package.json) - Current dependencies
- 

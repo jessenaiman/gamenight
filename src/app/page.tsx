@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <div className='container mx-auto px-4 py-8 md:py-12'>
       <section className='mb-12 text-center md:mb-16'>
-        <h1 className='animate-fade-in-down mb-4 font-headline text-4xl font-extrabold tracking-tighter md:text-6xl'>
+        <h1 className='animate-fade-in-down font-headline mb-4 text-4xl font-extrabold tracking-tighter md:text-6xl'>
           Welcome to <span className='text-primary'>Game Night Central</span>
         </h1>
-        <p className='mx-auto mb-8 max-w-3xl text-lg text-muted-foreground md:text-xl'>
+        <p className='text-muted-foreground mx-auto mb-8 max-w-3xl text-lg md:text-xl'>
           Discover, schedule, and join thrilling game nights. From classic board
           games to interactive challenges, your next adventure awaits!
         </p>
@@ -33,10 +33,10 @@ export default function Home() {
       </section>
 
       <section id='calendar'>
-        <Card className='overflow-hidden shadow-2xl transition-shadow duration-300 hover:shadow-primary/20'>
+        <Card className='hover:shadow-primary/20 overflow-hidden shadow-2xl transition-shadow duration-300'>
           <CardHeader className='bg-muted/30 text-center'>
-            <CardTitle className='flex items-center justify-center gap-2 font-headline text-3xl font-bold'>
-              <Dice5 className='h-8 w-8 text-primary' />
+            <CardTitle className='font-headline flex items-center justify-center gap-2 text-3xl font-bold'>
+              <Dice5 className='text-primary h-8 w-8' />
               Upcoming Events
             </CardTitle>
             <CardDescription>

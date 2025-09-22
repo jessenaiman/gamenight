@@ -27,7 +27,7 @@ export default function EventCalendar() {
         <div className='mb-4 flex items-center justify-between'>
           <h3 className='font-headline text-xl font-bold'>{`${monthName} ${year}`}</h3>
         </div>
-        <div className='grid grid-cols-7 gap-1 text-center text-sm text-muted-foreground'>
+        <div className='text-muted-foreground grid grid-cols-7 gap-1 text-center text-sm'>
           {weekDays.map(day => (
             <div key={day} className='font-semibold'>
               {day}
@@ -46,7 +46,7 @@ export default function EventCalendar() {
                 className={cn(
                   'flex aspect-square items-center justify-center rounded-lg transition-colors duration-200',
                   isEventDay
-                    ? 'relative bg-primary text-primary-foreground ring-2 ring-accent ring-offset-2 ring-offset-background'
+                    ? 'bg-primary text-primary-foreground ring-accent ring-offset-background relative ring-2 ring-offset-2'
                     : 'hover:bg-accent/50',
                   new Date(year, 7, day).getDay() === new Date().getDay() &&
                     !isEventDay &&
@@ -55,17 +55,17 @@ export default function EventCalendar() {
               >
                 {day}
                 {isEventDay && (
-                  <span className='absolute bottom-1 h-1 w-1 rounded-full bg-accent'></span>
+                  <span className='bg-accent absolute bottom-1 h-1 w-1 rounded-full'></span>
                 )}
               </div>
             );
           })}
         </div>
       </div>
-      <div className='animate-fade-in flex flex-col justify-center rounded-lg bg-muted/40 p-4 lg:p-6'>
+      <div className='animate-fade-in bg-muted/40 flex flex-col justify-center rounded-lg p-4 lg:p-6'>
         <div className='mb-3 flex items-center gap-3'>
-          <div className='flex h-16 w-16 flex-col items-center justify-center rounded-md bg-background p-2'>
-            <span className='text-sm font-semibold uppercase text-primary'>
+          <div className='bg-background flex h-16 w-16 flex-col items-center justify-center rounded-md p-2'>
+            <span className='text-primary text-sm font-semibold uppercase'>
               {monthName.substring(0, 3)}
             </span>
             <span className='text-3xl font-bold'>{eventDate}</span>
@@ -77,21 +77,21 @@ export default function EventCalendar() {
             <Badge variant='secondary'>Featured Event</Badge>
           </div>
         </div>
-        <p className='mb-4 text-sm text-muted-foreground'>
+        <p className='text-muted-foreground mb-4 text-sm'>
           Join us for an evening of friendly competition across card games,
           board games, and activity challenges!
         </p>
         <ul className='mb-4 space-y-2 text-sm'>
           <li className='flex items-center gap-2'>
-            <MapPin className='h-4 w-4 text-primary' />
+            <MapPin className='text-primary h-4 w-4' />
             <span>Virtual Event</span>
           </li>
           <li className='flex items-center gap-2'>
-            <Users className='h-4 w-4 text-primary' />
+            <Users className='text-primary h-4 w-4' />
             <span>20+ players expected</span>
           </li>
           <li className='flex items-center gap-2'>
-            <Gamepad2 className='h-4 w-4 text-primary' />
+            <Gamepad2 className='text-primary h-4 w-4' />
             <span>3 Game Categories</span>
           </li>
         </ul>

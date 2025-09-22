@@ -21,6 +21,7 @@ import {
   SheetClose,
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { AnimatedThemeToggler } from '@/components/theme-toggle';
 
 const navLinks = [
   { href: '/', label: 'Calendar', icon: CalendarDays },
@@ -33,7 +34,17 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
 
-  const NavLink = ({ href, label, icon: Icon, isMobile = false }: { href: string; label: string; icon: any; isMobile?: boolean }) => (
+  const NavLink = ({
+    href,
+    label,
+    icon: Icon,
+    isMobile = false,
+  }: {
+    href: string;
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+    isMobile?: boolean;
+  }) => (
     <Button
       asChild
       variant={pathname === href ? 'secondary' : 'ghost'}
@@ -47,10 +58,10 @@ export default function Header() {
   );
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur'>
       <div className='container flex h-16 items-center'>
         <Link href='/' className='mr-6 flex items-center space-x-2'>
-          <Dice5 className='h-6 w-6 text-primary' />
+          <Dice5 className='text-primary h-6 w-6' />
           <span className='font-headline font-bold sm:inline-block'>
             Game Night Central
           </span>
@@ -74,9 +85,9 @@ export default function Header() {
                 <div className='flex flex-col space-y-4'>
                   <Link
                     href='/'
-                    className='mb-4 mr-6 flex items-center space-x-2'
+                    className='mr-6 mb-4 flex items-center space-x-2'
                   >
-                    <Dice5 className='h-6 w-6 text-primary' />
+                    <Dice5 className='text-primary h-6 w-6' />
                     <span className='font-bold'>Game Night Central</span>
                   </Link>
                   <div className='flex flex-col space-y-2'>

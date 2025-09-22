@@ -87,9 +87,9 @@ export default function SignupForm() {
         <h3 className='text-2xl font-bold text-green-500'>
           Thank You for Registering!
         </h3>
-        <p className='mt-2 text-muted-foreground'>
+        <p className='text-muted-foreground mt-2'>
           Your registration is{' '}
-          <span className='font-semibold text-primary'>pending approval</span>.
+          <span className='text-primary font-semibold'>pending approval</span>.
           You will receive an email confirmation once it's reviewed by our team.
           We'll also send event reminders and your rotation schedule teaser.
         </p>
@@ -151,7 +151,7 @@ export default function SignupForm() {
                     />
                     <FormLabel
                       htmlFor='man'
-                      className='flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary'
+                      className='border-muted bg-popover hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 p-4'
                     >
                       Men - $30
                     </FormLabel>
@@ -164,7 +164,7 @@ export default function SignupForm() {
                     />
                     <FormLabel
                       htmlFor='woman'
-                      className='flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary'
+                      className='border-muted bg-popover hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 p-4'
                     >
                       Women - $10
                     </FormLabel>
@@ -177,7 +177,7 @@ export default function SignupForm() {
                     />
                     <FormLabel
                       htmlFor='couple'
-                      className='flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary'
+                      className='border-muted bg-popover hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary flex flex-col items-center justify-between rounded-md border-2 p-4'
                     >
                       Couples - $30
                     </FormLabel>
@@ -278,12 +278,12 @@ export default function SignupForm() {
           </CardContent>
         </Card>
 
-        <div className='flex items-center justify-between gap-4 rounded-lg border bg-background p-4'>
+        <div className='bg-background flex items-center justify-between gap-4 rounded-lg border p-4'>
           <div className='flex items-center gap-2'>
-            <DollarSign className='h-6 w-6 text-primary' />
+            <DollarSign className='text-primary h-6 w-6' />
             <span className='text-lg font-semibold'>Total Price:</span>
           </div>
-          <span className='text-2xl font-bold text-primary'>${price}</span>
+          <span className='text-primary text-2xl font-bold'>${price}</span>
         </div>
 
         <Button

@@ -1,11 +1,12 @@
 # 📄 Project Plan Template (VS Code + AI Agent)
 
-> *This document serves as a reference guide for the AI agent to understand the project context, navigate files, manage knowledge, and execute tasks efficiently without requiring real-time scanning.*
+> _This document serves as a reference guide for the AI agent to understand the project context, navigate files, manage knowledge, and execute tasks efficiently without requiring real-time scanning._
 
 ---
 
 ## 🔹 Table of Contents (TOC) – Top 5 Relevant Topics
-*(Use this section to quickly locate high-level topics)*
+
+_(Use this section to quickly locate high-level topics)_
 
 1. [Project Start & Tech Stack](#-project-start--tech-stack)
 2. [Top 5 Commands](#-top-5-commands)
@@ -14,11 +15,13 @@
 5. [Knowledge Management with Markdown](#-knowledge-management-with-markdown)
 6. [Database & Authentication Plan](#-database--authentication-plan)
 7. [Next Steps for AI Agent](#-next-steps-for-ai-agent)
+
 ---
 
 ## 🚀 Project Start & Tech Stack
 
 ### Frameworks & Libraries
+
 - **Next.js** → React framework with App Router
 - **TypeScript** → Type-safe JavaScript
 - **Tailwind CSS** → Utility-first CSS framework
@@ -26,7 +29,8 @@
 - **React** → Frontend framework used throughout
 
 ### Key Dependencies
-- **@radix-ui/react-*** → Low-level UI primitives
+
+- **@radix-ui/react-\*** → Low-level UI primitives
 - **@headlessui/react** → Unstyled UI components
 - **lucide-react** → Icon library
 - **class-variance-authority** → Component variant management
@@ -40,13 +44,13 @@
 
 The AI agent should prioritize these actions:
 
-| Command   | Purpose |
-|----------|--------|
+| Command  | Purpose                                              |
+| -------- | ---------------------------------------------------- |
 | `search` | Find content across files using keywords or patterns |
-| `read`   | Read file contents (e.g., `.ts`, `.tsx`, `.md`) |
-| `write`  | Modify or create new files (with caution) |
-| `save`   | Save changes after editing |
-| `list`   | List directory contents or available files |
+| `read`   | Read file contents (e.g., `.ts`, `.tsx`, `.md`)      |
+| `write`  | Modify or create new files (with caution)            |
+| `save`   | Save changes after editing                           |
+| `list`   | List directory contents or available files           |
 
 > 💡 Use `search` first before writing — always check if content already exists.
 
@@ -96,9 +100,11 @@ When tasked with learning a new concept or completing a task:
    - Example: `notes/forms-validation.md`
 
 2. **Search for existing knowledge**:
+
    ```bash
    search "forms validation"
    ```
+
    - If found, **read** and extend it.
    - If not found, **create** new note.
 
@@ -117,26 +123,32 @@ When tasked with learning a new concept or completing a task:
 ### How to Store & Retrieve Knowledge
 
 #### ✅ Create New Knowledge
+
 ```markdown
 # <Topic>
 
 ## Overview
+
 Brief description of the topic.
 
 ## Usage Examples
+
 Code snippets or usage patterns.
 
 ## Related Files
+
 - `src/components/form.tsx`
 - `src/hooks/useForm.ts`
 ```
 
 #### 🔍 Retrieve Knowledge
+
 - Use `search "<keyword>"` to locate related files.
 - Use `read notes/<topic>.md` to load stored knowledge.
 - Use `read README.md` to review project overview and TOC.
 
 #### 🔄 Update Knowledge
+
 - Append to existing `.md` files instead of creating duplicates.
 - Ensure consistency in naming and formatting.
 
@@ -147,6 +159,7 @@ Code snippets or usage patterns.
 ## 🗄️ Database & Authentication Plan
 
 ### Current Status ✅ PHASE 1 COMPLETE
+
 - **✅ Database infrastructure fully implemented** with Prisma ORM
 - **✅ SQLite database** configured for development with PostgreSQL ready for production
 - **✅ Complete database schema** with all models, relations, and enums
@@ -155,13 +168,16 @@ Code snippets or usage patterns.
 - **✅ Database management scripts** added to package.json
 
 ### Architecture Implementation ✅
+
 **Prisma ORM + Environment-Based Configuration**:
+
 - **SQLite** for local development (zero configuration)
 - **PostgreSQL** ready for production deployment
 - **NextAuth.js** dependencies installed and ready
 - **Migration and seed scripts** implemented and tested
 
 ### Implementation Roadmap
+
 See [`notes/database-authentication-plan.md`](notes/database-authentication-plan.md) for the comprehensive implementation plan:
 
 - **✅ Phase 1**: Foundation setup (Prisma, database schema, basic auth) - COMPLETE
@@ -170,6 +186,7 @@ See [`notes/database-authentication-plan.md`](notes/database-authentication-plan
 - **Phase 4**: Feature integration (real data for all pages)
 
 ### Priority Features
+
 1. **✅ Database Setup** - Prisma ORM with SQLite/PostgreSQL - COMPLETE
 2. **User Authentication** - NextAuth.js with credentials
 3. **Event Management** - Database-backed events with migrations
@@ -177,12 +194,14 @@ See [`notes/database-authentication-plan.md`](notes/database-authentication-plan
 5. **Admin Dashboard** - Live data management interface
 
 ### Testing Strategy
+
 - **Playwright E2E tests** for each phase implementation
 - **Unit tests** for repositories and utilities
 - **Integration tests** for database connections
 - **Migration and seed script testing**
 
 ### Code Quality Requirements
+
 - **ESLint configuration** with strict rules
 - **Prettier** for consistent code formatting
 - **TypeScript strict mode** enabled

@@ -49,6 +49,7 @@ You are a seasoned project lead and software architect with deep expertise in sy
 ## Output Format:
 
 Your output should be a structured report in `notes/project-review.md` with the following sections:
+
 - **Feature Request Summary**
 - **Architecture Alignment**
 - **Code Quality Assessment**

@@ -3,11 +3,14 @@
 ## Current Pages and Data Structures
 
 ### 1. Home Page (`src/app/page.tsx`)
+
 **Current Data:**
+
 - Static event information (hardcoded)
 - Calendar display with single event
 
 **Proposed Database Structure:**
+
 ```typescript
 // Events table
 interface Event {
@@ -31,12 +34,15 @@ interface Event {
 ```
 
 ### 2. Event Details Page (`src/app/events/[slug]/page.tsx`)
+
 **Current Data:**
+
 - Static event details
 - Game categories (hardcoded)
 - Pricing structure
 
 **Additional Database Structures Needed:**
+
 ```typescript
 // Game Categories table
 interface GameCategory {
@@ -51,11 +57,14 @@ interface GameCategory {
 ```
 
 ### 3. Signup Page (`src/app/signup/page.tsx`)
+
 **Current Data:**
+
 - Form data (not persisted)
 - Registration types and pricing
 
 **Database Structure:**
+
 ```typescript
 // Registrations table
 interface Registration {
@@ -77,18 +86,23 @@ interface Registration {
 ```
 
 ### 4. Admin Page (`src/app/admin/page.tsx`)
+
 **Current Data:**
+
 - Mock registration data
 - Approval/denial actions
 
 **Uses:** Registration table above
 
 ### 5. Ideas & Polls Page (`src/app/ideas/page.tsx`)
+
 **Current Data:**
+
 - Static approved ideas
 - Poll data (component state)
 
 **Database Structures:**
+
 ```typescript
 // Ideas table
 interface Idea {
@@ -123,12 +137,15 @@ interface PollVote {
 ```
 
 ### 6. Volunteers Page (`src/app/volunteers/page.tsx`)
+
 **Current Data:**
+
 - Static volunteer roles
 - Static benefits
 - Form data (not persisted)
 
 **Database Structure:**
+
 ```typescript
 // Volunteer Applications table
 interface VolunteerApplication {
@@ -157,10 +174,13 @@ interface VolunteerRole {
 ```
 
 ### 7. Rules Page (`src/app/rules/page.tsx`)
+
 **Current Data:**
+
 - Static rules content
 
 **Database Structure (Optional):**
+
 ```typescript
 // Rules table (for dynamic content management)
 interface Rule {
@@ -176,6 +196,7 @@ interface Rule {
 ```
 
 ## Next Steps
+
 1. Review each page's data structure requirements
 2. Create Supabase tables for the confirmed structures
 3. Implement data persistence for each page
