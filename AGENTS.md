@@ -12,6 +12,6 @@
 ### Frameworks & Libraries
 - **[Tailwind CSS 4.1](notes/tailwindcss-4.1-upgrade.md)** → Used via `@import "tailwindcss"` (CSS-first configuration)
 - **[Nextjs](notes/nextjs15)** → Pre-built React components (installed, read-only)
-- **[React 18](notes/react19.md)+** → Frontend framework used throughout
+- **[React 19](notes/react19.md)+** → Frontend framework used throughout
 
 > ⚠️ Shadcn [components](src/components/ui/) are **read-only**; avoid modifying source files.

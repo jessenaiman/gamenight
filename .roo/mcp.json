@@ -9,18 +9,17 @@
         "browser_navigate"
       ]
     },
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/home/dice-wizard/dev/rebrand/"
-      ],
-      "disabled": false,
-      "alwaysAllow": [
-        "read_file",
-        "read_text_file"
-      ]
-    }
+		"desktop-commander": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@smithery/cli@latest",
+				"run",
+				"@wonderwhy-er/desktop-commander",
+				"--key",
+				"a52b9e66-6055-4c0b-bc90-5622560ea938"
+			]
+		},
   }
 }

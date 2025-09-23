@@ -37,7 +37,7 @@ export default function Poll({
   };
 
   return (
-    <div className='rounded-lg border bg-background p-4'>
+    <div className='bg-background rounded-lg border p-4'>
       <h4 className='mb-4 font-semibold'>{question}</h4>
       {!hasVoted ? (
         <RadioGroup

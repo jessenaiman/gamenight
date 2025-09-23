@@ -15,8 +15,8 @@ export default function SignupPage() {
       <div className='flex justify-center'>
         <Card className='w-full max-w-2xl shadow-xl'>
           <CardHeader className='text-center'>
-            <div className='mx-auto mb-4 w-fit rounded-full bg-primary/10 p-3'>
-              <PenSquare className='h-8 w-8 text-primary' />
+            <div className='bg-primary/10 mx-auto mb-4 w-fit rounded-full p-3'>
+              <PenSquare className='text-primary h-8 w-8' />
             </div>
             <CardTitle className='font-headline text-3xl font-bold'>
               Register for Game Night
