@@ -1,6 +1,6 @@
 # **App Name**: Game Night Central
 
-## Core Features:
+## Core Features
 
 - Event Calendar: Interactive calendar displaying game night events, highlighting key details.
 - Event Details: Dedicated pages for each game night event, detailing event rules, gameplay mechanics, and pricing.
@@ -10,7 +10,7 @@
 - User Suggestions & Polls: Interactive page for users to submit game ideas and participate in polls, enhancing community engagement.
 - Rules & Guidelines: Comprehensive outline of community and event-specific rules and guidelines.
 
-## Style Guidelines:
+## Style Guidelines
 
 - Primary color: Deep purple (#4B0082) to evoke an evening atmosphere.
 - Background color: Desaturated dark blue (#223343) for a night sky feel.

@@ -14,6 +14,7 @@
 5. [Knowledge Management with Markdown](#-knowledge-management-with-markdown)
 6. [Database & Authentication Plan](#-database--authentication-plan)
 7. [Next Steps for AI Agent](#-next-steps-for-ai-agent)
+
 ---
 
 ## 🚀 Project Start & Tech Stack
@@ -21,7 +22,7 @@
 ### Frameworks & Libraries
 - **Next.js** → React framework with App Router
 - **TypeScript** → Type-safe JavaScript
-- **Tailwind CSS** → Utility-first CSS framework
+- **Tailwind CSS 4.1** → Utility-first CSS framework (CSS-first configuration)
 - **Shadcn UI** → Pre-built React components (installed, read-only)
 - **React** → Frontend framework used throughout
 
@@ -41,12 +42,12 @@
 The AI agent should prioritize these actions:
 
 | Command   | Purpose |
-|----------|--------|
-| `search` | Find content across files using keywords or patterns |
-| `read`   | Read file contents (e.g., `.ts`, `.tsx`, `.md`) |
-| `write`  | Modify or create new files (with caution) |
-| `save`   | Save changes after editing |
-| `list`   | List directory contents or available files |
+|-----------|---------|
+| `search`  | Find content across files using keywords or patterns |
+| `read`    | Read file contents (e.g., `.ts`, `.tsx`, `.md`) |
+| `write`   | Modify or create new files (with caution) |
+| `save`    | Save changes after editing |
+| `list`    | List directory contents or available files |
 
 > 💡 Use `search` first before writing — always check if content already exists.
 
@@ -76,7 +77,6 @@ project-root/
 ├── docs/                        # Documentation files
 ├── notes/                       # Knowledge management
 ├── public/                      # Static assets
-├── tailwind.config.ts
 ├── package.json
 └── README.md
 ```

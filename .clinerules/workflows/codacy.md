@@ -3,7 +3,7 @@
     applyTo: '**'
 ---
 ---
-# Codacy Rules
+
 Configuration for AI behavior when interacting with Codacy's MCP Server
 
 ## CRITICAL: After ANY successful `edit_file` or `reapply` operation
