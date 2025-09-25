@@ -23,11 +23,11 @@ export default function IdeasPage() {
   return (
     <div className='container mx-auto px-4 py-8 md:py-12'>
       <div className='mb-12 text-center'>
-        <Lightbulb className='mx-auto mb-4 h-16 w-16 text-primary' />
+        <Lightbulb className='text-primary mx-auto mb-4 h-16 w-16' />
         <h1 className='font-headline text-4xl font-extrabold md:text-5xl'>
           Ideas & Community Polls
         </h1>
-        <p className='mx-auto mt-4 max-w-3xl text-lg text-muted-foreground'>
+        <p className='text-muted-foreground mx-auto mt-4 max-w-3xl text-lg'>
           Help shape our next game night! Submit your brilliant ideas and vote
           on what you want to play next.
         </p>
@@ -37,8 +37,8 @@ export default function IdeasPage() {
         <div className='space-y-8'>
           <Card className='shadow-xl'>
             <CardHeader>
-              <CardTitle className='flex items-center gap-2 font-headline text-2xl font-bold'>
-                <Send className='h-6 w-6 text-primary' />
+              <CardTitle className='font-headline flex items-center gap-2 text-2xl font-bold'>
+                <Send className='text-primary h-6 w-6' />
                 Submit Your Idea
               </CardTitle>
               <CardDescription>
@@ -76,7 +76,7 @@ export default function IdeasPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className='list-inside list-disc space-y-2 text-muted-foreground'>
+              <ul className='text-muted-foreground list-inside list-disc space-y-2'>
                 {approvedIdeas.map((idea, i) => (
                   <li key={i}>{idea}</li>
                 ))}
@@ -87,8 +87,8 @@ export default function IdeasPage() {
         <div className='space-y-8'>
           <Card className='sticky top-24 shadow-xl'>
             <CardHeader>
-              <CardTitle className='flex items-center gap-2 font-headline text-2xl font-bold'>
-                <Vote className='h-6 w-6 text-primary' />
+              <CardTitle className='font-headline flex items-center gap-2 text-2xl font-bold'>
+                <Vote className='text-primary h-6 w-6' />
                 Community Polls
               </CardTitle>
               <CardDescription>

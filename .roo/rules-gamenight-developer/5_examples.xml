@@ -1,0 +1,128 @@
+              <feature name="Event Registration API">
+                <description>New API endpoint for event registration with validation and capacity checking</description>
+                <endpoint>POST /api/events/[id]/register</endpoint>
+                <validation>Zod schema validation for participant data</validation>
+                <features>Duplicate prevention, capacity checking, user authentication</features>
+              </feature>
+              </feature>
+    <example name="new_api_endpoint">
+      <description>Implementing a new API endpoint for event registration</description>
+      <scenario>
+        User requests: "Add an API endpoint to handle event registration with validation"
+      </scenario>
+      <implementation_steps>
+        <step>
+          <description>Research existing API patterns</description>
+          <tools>
+            <tool>codebase_search query="API route event registration"</tool>
+            <tool>read_file path="src/app/api/events/route.ts"</tool>
+            <tool>read_file path="notes/database-authentication-plan.md"</tool>
+          </tools>
+        </step>
+        <step>
+          <description>Design the API endpoint</description>
+          <design>
+            <endpoint>POST /api/events/[id]/register</endpoint>
+            <validation>Zod schema for registration data</validation>
+            <authentication>Require authenticated user</authentication>
+            <business_logic>Check event capacity, prevent duplicate registration</business_logic>
+          </design>
+        </step>
+        <step>
+          <description>Implement the API route following project patterns</description>
+          <code>
+            <apply_diff>
+              <path>src/app/api/events/[id]/register/route.ts</path>
+              <diff>
+                <content><![CDATA[
+                  import { NextRequest, NextResponse } from 'next/server';
+                  import { prisma } from '@/lib/prisma';
+                  import { z } from 'zod';
+
+                  const RegisterSchema = z.object({
+                    participantName: z.string().min(1).max(100),
+                    email: z.string().email(),
+                    specialRequirements: z.string().optional()
+                  });
+
+                  export async function POST(
+                    request: NextRequest,
+                    { params }: { params: { id: string } }
+                  ) {
+                    try {
+                      // Check authentication
+                      const userId = request.headers.get('x-user-id');
+                      if (!userId) {
+                        return NextResponse.json(
+                          { error: 'Unauthorized' },
+                          { status: 401 }
+                        );
+                      }
+
+                      const body = await request.json();
+                      const validatedData = RegisterSchema.parse(body);
+
+                      // Check if event exists and has capacity
+                      const event = await prisma.event.findUnique({
+                        where: { id: params.id },
+                        include: { participants: true }
+                      });
+
+                      if (!event) {
+                        return NextResponse.json(
+                          { error: 'Event not found' },
+                          { status: 404 }
+                        );
+                      }
+
+                      if (event.participants.length >= event.maxParticipants) {
+                        return NextResponse.json(
+                          { error: 'Event is full' },
+                          { status: 400 }
+                        );
+                      }
+
+                      // Check for duplicate registration
+                      const existingRegistration = event.participants.find(
+                        p => p.email === validatedData.email
+                      );
+
+                      if (existingRegistration) {
+                        return NextResponse.json(
+                          { error: 'Already registered for this event' },
+                          { status: 400 }
+                        );
+                      }
+
+                      // Create registration
+                      const registration = await prisma.eventRegistration.create({
+                        data: {
+                          eventId: params.id,
+                          participantName: validatedData.participantName,
+                          email: validatedData.email,
+                          specialRequirements: validatedData.specialRequirements,
+                          registeredById: userId
+                        }
+                      });
+
+                      return NextResponse.json({
+                        success: true,
+                        registrationId: registration.id
+                      }, { status: 201 });
+
+                    } catch (error) {
+                      if (error instanceof z.ZodError) {
+                        return NextResponse.json(
+                          { error: 'Invalid input', details: error.errors },
+                          { status: 400 }
+                        );
+                      }
+
+                      console.error('Error registering for event:', error);
+                      return NextResponse.json(
+                        { error: 'Internal server error' },
+                        { status: 500 }
+                      );
+                    }
+                  }
+                  }

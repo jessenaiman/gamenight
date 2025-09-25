@@ -1,6 +1,5 @@
 ---
 description: Research and document topics using Context7 and memory bank tools
-argument-hint: <topic> [--no-web-fallback]
 ---
 
 # Librarian Command
@@ -8,7 +7,7 @@ argument-hint: <topic> [--no-web-fallback]
 ## LLM Instructions
 
 1. **Check Memory Bank:**  
-    - Search `docs/` for the topic.  
+    - Search `notes/` for the topic.  
     - If found, return the match and suggest an update if outdated.
 
 2. **Context7 Research:**  
@@ -20,12 +19,37 @@ argument-hint: <topic> [--no-web-fallback]
 
 4. **Document & Save:**  
     - Summarize findings: key info, best practices, code, version notes, sources.  
-    - Save new/contradictory info to `docs/` with a clear filename.
+    - Save new/contradictory info to `notes/` with a clear filename.
 
 5. **Cite & Validate:**  
     - Add timestamp and source citations for future updates.
 
 **Notes:**  
-- Prefer Context7 over web search.  
+
 - Focus on actionable, compatible info.  
 - Update docs for new versions or practices.
+
+## 🧠 Learning Strategy
+
+### Goal: Learn `<Topic>` for `<Task>`
+
+When tasked with learning a new concept or completing a task:
+
+1. **Create a markdown note**:
+   - Use filename pattern: `notes/<topic>.md`
+   - Example: `notes/forms-validation.md`
+
+2. **Search for existing knowledge**:
+   ```bash
+   search "forms validation"
+   ```
+   - If found, **read** and extend it.
+   - If not found, **create** new note.
+
+3. **Read TOC to find relevant sections**:
+   - Use the table of contents at the top of the project plan or in `README.md` to navigate.
+
+4. **Update TOC when adding new topics**:
+   - Add entries under "Table of Contents" if the topic is significant.
+
+> ✅ Always follow the principle: **Don’t duplicate**. Reuse or extend existing knowledge.

@@ -4,42 +4,6 @@
 
 ---
 
-## 🔹 Table of Contents (TOC) – Top 3 Relevant Topics
-*(Use this section to quickly locate high-level topics)*
-
-1. [Project Start & Tech Stack](#project-start--tech-stack)
-2. [Top 5 Commands](#top-5-commands)
-3. [File Tree Structure](#file-tree-structure)
-4. [Learning Strategy](#learning-strategy)
-5. [Knowledge Management with Markdown](#knowledge-management-with-markdown)
-
----
-
-## 🚀 Project Start & Tech Stack
-
-### Frameworks & Libraries
-- **Tailwind CSS** → Used via `@tailwind` directives (`@include`)
-- **Shadcn UI** → Pre-built React components (installed, read-only)
-- **React** → Frontend framework used throughout
-
-> ✅ All components are imported from `@radix-ui/react-*` or `@headlessui/react` via shadcn’s wrapper.
-> ⚠️ Shadcn components are **read-only**; avoid modifying source files.
-
----
-
-## 🔧 Top 5 Commands [TODO: update with actual tool calls]
-
-The AI agent should prioritize these actions:
-
-| Command   | Purpose |
-|----------|--------|
-| `search` | Find content across files using keywords or patterns |
-| `read`   | Read file contents (e.g., `.ts`, `.tsx`, `.md`) |
-| `write`  | Modify or create new files (with caution) |
-| `save`   | Save changes after editing |
-| `list`   | List directory contents or available files |
-
-> 💡 Use `search` first before writing — always check if content already exists.
 
 ---
 
@@ -57,16 +21,24 @@ The AI agent should prioritize these actions:
 
 When tasked with learning a new concept or completing a task:
 
-1. **Create a markdown note**:
-   - Use filename pattern: `notes/<topic>.md`
-   - Example: `notes/forms-validation.md`
+1. **Check Memory Bank:**  
+    - Search `notes/` for the topic.  
+    - If found, return the match and suggest an update if outdated.
 
-2. **Search for existing knowledge**:
-   ```bash
-   search "forms validation"
-   ```
-   - If found, **read** and extend it.
-   - If not found, **create** new note.
+2. **Context7 Research:**  
+    - Use Context7 MCP for official docs, best practices, usage, version info, and code examples.  
+    - Prefer trusted sources.
+
+3. **Advanced Tools (if needed):**  
+    - Use web search, MCP server tools, or repo analysis for extra info.
+
+4. **Document & Save:**  
+    - Summarize findings: key info, best practices, code, version notes, sources.  
+    - Save new/contradictory info to `notes/` with a clear filename.
+    - MUST HAVE Table of Contents linking to the headers within the file 
+    - Add timestamp
+    - use XML and markdown
+    - KISS and simplify context and prose to staments like that relevant and useful 
 
 3. **Read TOC to find relevant sections**:
    - Use the table of contents at the top of the project plan or in `README.md` to navigate.
@@ -78,11 +50,11 @@ When tasked with learning a new concept or completing a task:
 
 ---
 
-## 📝 Knowledge Management with Markdown
-
 ### How to Store & Retrieve Knowledge
 
-#### ✅ Create New Knowledge
+#### ✅ Create New Knowledge Example
+
+<CreateNew>
 ```markdown
 # <Topic>
 
@@ -96,6 +68,7 @@ Code snippets or usage patterns.
 - `src/components/form.tsx`
 - `src/hooks/useForm.ts`
 ```
+</CreateNew>
 
 #### 🔍 Retrieve Knowledge
 - Use `search "<keyword>"` to locate related files.
@@ -109,13 +82,6 @@ Code snippets or usage patterns.
 > 🛠️ Tip: Use `#` and `##` headers consistently so TOC can be auto-generated.
 
 ---
-
-## 🧩 Next Steps for AI Agent
-
-1. **On startup**: Load `README.md` and this plan to establish context.
-2. **Before any task**: Search for existing notes or code.
-3. **After learning**: Write a markdown note and update TOC if needed.
-4. **Always verify**: Confirm whether a file is read-only before attempting to write.
 
 ---
 

@@ -1,0 +1,280 @@
+<gamenight_development_practices>
+  <overview>
+    Best practices and conventions specific to Game Night Central development,
+    ensuring consistency, quality, and maintainability across the codebase.
+  </overview>
+
+  <architecture_principles>
+    <principle name="nextjs_app_router">
+      <description>Use Next.js 15+ App Router architecture</description>
+      <rules>
+        <rule>Use app/ directory structure with layout.tsx and page.tsx files</rule>
+        <rule>Implement proper loading.tsx and error.tsx boundaries</rule>
+        <rule>Use Server Components by default, Client Components only when needed</rule>
+        <rule>Leverage Next.js 15+ features for improved performance</rule>
+      </rules>
+      <examples>
+        <example name="page_structure">
+          <code language="typescript">
+            // app/events/[slug]/page.tsx
+            export default async function EventPage({
+              params
+            }: {
+              params: { slug: string }
+            }) {
+              const event = await getEvent(params.slug);
+              return <EventDetails event={event} />;
+            }
+          </code>
+        </example>
+      </examples>
+    </principle>
+
+    <principle name="typescript_strict">
+      <description>Maintain strict TypeScript configuration</description>
+      <rules>
+        <rule>Define proper types for all data structures</rule>
+        <rule>Use interfaces for object shapes, types for unions</rule>
+        <rule>Avoid any types; use unknown with proper type guards</rule>
+        <rule>Leverage TypeScript 5+ features for better type safety</rule>
+      </rules>
+      <examples>
+        <example name="type_safety">
+          <code language="typescript">
+            // ✅ Good: Proper typing
+            interface User {
+              id: string;
+              email: string;
+              name: string;
+              preferences: UserPreferences;
+            }
+
+            type UserRole = 'admin' | 'organizer' | 'participant';
+
+            // ❌ Avoid: Weak typing
+            // type User = any;
+            // interface User {
+            //   [key: string]: unknown;
+            // }
+          </code>
+        </example>
+      </examples>
+    </principle>
+
+    <principle name="prisma_orm">
+      <description>Use Prisma ORM for database operations</description>
+      <rules>
+        <rule>Define schema in schema.prisma with proper relations</rule>
+        <rule>Use Prisma Client for type-safe database operations</rule>
+        <rule>Implement proper migrations for schema changes</rule>
+        <rule>Use environment-specific database configurations</rule>
+      </rules>
+      <examples>
+        <example name="prisma_operations">
+          <code language="typescript">
+            // lib/prisma.ts
+            import { PrismaClient } from '@prisma/client';
+
+            const globalForPrisma = globalThis as unknown as {
+              prisma: PrismaClient | undefined;
+            };
+
+            export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+            if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+            // Usage in API routes
+            export async function getUserEvents(userId: string) {
+              return await prisma.event.findMany({
+                where: { organizerId: userId },
+                include: { participants: true },
+                orderBy: { date: 'asc' }
+              });
+            }
+          </code>
+        </example>
+      </examples>
+    </principle>
+
+    <principle name="authentication_pattern">
+      <description>Implement secure authentication with NextAuth.js</description>
+      <rules>
+        <rule>Use NextAuth.js v4+ with proper configuration</rule>
+        <rule>Implement role-based access control</rule>
+        <rule>Secure API routes with proper middleware</rule>
+        <rule>Use environment variables for sensitive configuration</rule>
+      </rules>
+    </principle>
+  </architecture_principles>
+
+  <coding_conventions>
+    <convention name="component_structure">
+      <description>Consistent React component organization</description>
+      <rules>
+        <rule>Use functional components with hooks</rule>
+        <rule>Implement proper prop types and validation</rule>
+        <rule>Use custom hooks for reusable logic</rule>
+        <rule>Follow component composition patterns</rule>
+      </rules>
+      <examples>
+        <example name="component_pattern">
+          <code language="typescript">
+            // components/event-form.tsx
+            interface EventFormProps {
+              event?: Partial<Event>;
+              onSubmit: (data: EventFormData) => Promise<void>;
+              onCancel: () => void;
+            }
+
+            export function EventForm({ event, onSubmit, onCancel }: EventFormProps) {
+              const [formData, setFormData] = useState<EventFormData>({
+                title: event?.title || '',
+                description: event?.description || '',
+                date: event?.date || new Date()
+              });
+
+              const handleSubmit = async (e: React.FormEvent) => {
+                e.preventDefault();
+                await onSubmit(formData);
+              };
+
+              return (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Input
+                    value={formData.title}
+                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    placeholder="Event title"
+                    required
+                  />
+                  <Button type="submit">Save Event</Button>
+                  <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>
+                </form>
+              );
+            }
+          </code>
+        </example>
+      </examples>
+    </convention>
+
+    <convention name="error_handling">
+      <description>Consistent error handling patterns</description>
+      <rules>
+        <rule>Implement proper try-catch blocks for async operations</rule>
+        <rule>Use error boundaries for React error handling</rule>
+        <rule>Provide meaningful error messages to users</rule>
+        <rule>Log errors appropriately for debugging</rule>
+      </rules>
+      <examples>
+        <example name="error_handling">
+          <code language="typescript">
+            // In API routes
+            export async function POST(request: Request) {
+              try {
+                const data = await request.json();
+                const result = await createEvent(data);
+
+                return Response.json({ success: true, data: result });
+              } catch (error) {
+                console.error('Error creating event:', error);
+
+                if (error instanceof ValidationError) {
+                  return Response.json(
+                    { success: false, error: error.message },
+                    { status: 400 }
+                  );
+                }
+
+                return Response.json(
+                  { success: false, error: 'Internal server error' },
+                  { status: 500 }
+                );
+              }
+            }
+          </code>
+        </example>
+      </examples>
+    </convention>
+
+    <convention name="file_organization">
+      <description>Logical file and folder structure</description>
+      <rules>
+        <rule>Group related files in feature-based folders</rule>
+        <rule>Use index.ts for clean public API exports</rule>
+        <rule>Separate concerns (UI, business logic, data access)</rule>
+        <rule>Use consistent naming conventions</rule>
+      </rules>
+    </convention>
+  </coding_conventions>
+
+  <testing_standards>
+    <standard name="unit_testing">
+      <description>Comprehensive unit test coverage</description>
+      <rules>
+        <rule>Test business logic with Jest</rule>
+        <rule>Use React Testing Library for components</rule>
+        <rule>Mock external dependencies appropriately</rule>
+        <rule>Aim for high test coverage on critical paths</rule>
+      </rules>
+      <tools>
+        <tool>npm test - Run unit tests</tool>
+        <tool>npm run test:coverage - Check coverage</tool>
+      </tools>
+    </standard>
+
+    <standard name="integration_testing">
+      <description>Integration and E2E testing</description>
+      <rules>
+        <rule>Test complete user workflows</rule>
+        <rule>Verify API integrations work correctly</rule>
+        <rule>Test authentication and authorization flows</rule>
+        <rule>Use Playwright for comprehensive E2E tests</rule>
+      </rules>
+      <tools>
+        <tool>npm run test:e2e - Run E2E tests</tool>
+        <tool>npx playwright test --ui - Run tests with UI</tool>
+      </tools>
+    </standard>
+
+    <standard name="performance_testing">
+      <description>Performance validation</description>
+      <rules>
+        <rule>Test application performance under load</rule>
+        <rule>Monitor database query performance</rule>
+        <rule>Validate frontend performance metrics</rule>
+        <rule>Ensure optimal bundle sizes</rule>
+      </rules>
+    </standard>
+  </testing_standards>
+
+  <security_practices>
+    <practice name="input_validation">
+      <description>Validate and sanitize all inputs</description>
+      <rules>
+        <rule>Use Zod for schema validation</rule>
+        <rule>Sanitize user inputs before processing</rule>
+        <rule>Implement rate limiting on API endpoints</rule>
+        <rule>Use parameterized queries to prevent SQL injection</rule>
+      </rules>
+    </practice>
+
+    <practice name="authentication_security">
+      <description>Secure authentication implementation</description>
+      <rules>
+        <rule>Use secure session management</rule>
+        <rule>Implement proper CSRF protection</rule>
+        <rule>Use HTTPS for all communications</rule>
+        <rule>Store sensitive data securely</rule>
+      </rules>
+    </practice>
+
+    <practice name="data_protection">
+      <description>Protect sensitive data</description>
+      <rules>
+        <rule>Hash passwords with bcrypt</rule>
+        <rule>Use environment variables for secrets</rule>
+        <rule>Implement data access controls</rule>
+        <rule>Regular security audits</rule>
+      </rules>
+    </practice>
+  </security_practices>
+</gamenight_development_practices>

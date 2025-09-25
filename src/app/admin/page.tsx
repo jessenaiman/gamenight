@@ -56,8 +56,8 @@ export default function AdminPage() {
       <Card className='shadow-xl'>
         <CardHeader>
           <div className='flex items-center gap-4'>
-            <div className='rounded-full bg-primary/10 p-3'>
-              <ShieldCheck className='h-8 w-8 text-primary' />
+            <div className='bg-primary/10 rounded-full p-3'>
+              <ShieldCheck className='text-primary h-8 w-8' />
             </div>
             <div>
               <CardTitle className='font-headline text-3xl font-bold'>
@@ -88,7 +88,7 @@ export default function AdminPage() {
                 {pendingRegistrations.map(reg => (
                   <TableRow key={reg.id}>
                     <TableCell className='font-medium'>{reg.name}</TableCell>
-                    <TableCell className='hidden text-muted-foreground md:table-cell'>
+                    <TableCell className='text-muted-foreground hidden md:table-cell'>
                       {reg.email}
                     </TableCell>
                     <TableCell>
@@ -100,7 +100,7 @@ export default function AdminPage() {
                         {reg.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className='hidden text-muted-foreground md:table-cell'>
+                    <TableCell className='text-muted-foreground hidden md:table-cell'>
                       {reg.submitted}
                     </TableCell>
                     <TableCell className='text-right'>
@@ -129,7 +129,7 @@ export default function AdminPage() {
             </Table>
           </div>
           {pendingRegistrations.length === 0 && (
-            <div className='py-12 text-center text-muted-foreground'>
+            <div className='text-muted-foreground py-12 text-center'>
               <p>No pending registrations.</p>
             </div>
           )}

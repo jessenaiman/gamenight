@@ -1,3 +1,5 @@
+-- Migration: Initial schema setup
+
 -- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL PRIMARY KEY,

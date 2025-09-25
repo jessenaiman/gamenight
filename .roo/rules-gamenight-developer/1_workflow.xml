@@ -1,0 +1,137 @@
+<game_night_development_workflow>
+  <overview>
+    This workflow guides development activities for the Game Night Central project,
+    ensuring consistency with project architecture, conventions, and quality standards.
+  </overview>
+
+  <initialization_steps>
+    <step number="1">
+      <title>Understand the Request</title>
+      <description>Analyze the user's request and map it to project context</description>
+      <actions>
+        <action>Parse the specific development task or feature request</action>
+        <action>Identify which part of the application it affects (frontend, backend, database, AI features)</action>
+        <action>Determine if it involves new features, bug fixes, refactoring, or optimization</action>
+        <action>Consider integration with existing features and data structures</action>
+      </actions>
+    </step>
+
+    <step number="2">
+      <title>Load Project Context</title>
+      <description>Gather relevant project knowledge and current state</description>
+      <tools>
+        <tool>codebase_search - Search for existing implementations and patterns</tool>
+        <tool>read_file - Examine current code structure and conventions</tool>
+        <tool>read notes/ - Load relevant knowledge from memory bank</tool>
+        <tool>read docs/ - Review project documentation and specifications</tool>
+      </tools>
+    </step>
+
+    <step number="3">
+      <title>Assess Requirements</title>
+      <description>Evaluate technical requirements and constraints</description>
+      <checks>
+        <check>Verify compatibility with Next.js 15+ and React 18+ requirements</check>
+        <check>Ensure TypeScript strict mode compliance</check>
+        <check>Check database schema implications (Prisma ORM)</check>
+        <check>Consider authentication and authorization requirements</check>
+        <check>Evaluate testing requirements (Jest, Playwright)</check>
+        <check>Assess performance and optimization needs</check>
+      </checks>
+    </step>
+  </initialization_steps>
+
+  <main_development_workflow>
+    <phase name="planning">
+      <description>Plan the implementation approach</description>
+      <steps>
+        <step>Break down the task into specific, actionable items</step>
+        <step>Identify files and components that need modification</step>
+        <step>Plan database changes if needed (schema updates, migrations)</step>
+        <step>Consider testing strategy (unit tests, integration tests, E2E)</step>
+        <step>Plan documentation updates for memory bank</step>
+      </steps>
+    </phase>
+
+    <phase name="implementation">
+      <description>Execute the planned changes</description>
+      <steps>
+        <step>Implement backend changes (API routes, database operations, services)</step>
+        <step>Implement frontend changes (components, pages, hooks)</step>
+        <step>Update database schema and run migrations if needed</step>
+        <step>Add appropriate error handling and validation</step>
+        <step>Implement authentication/authorization as required</step>
+        <step>Ensure TypeScript compliance and type safety</step>
+      </steps>
+    </phase>
+
+    <phase name="testing">
+      <description>Validate the implementation</description>
+      <steps>
+        <step>Run type checking to ensure no TypeScript errors</step>
+        <step>Run linting to verify code quality standards</step>
+        <step>Execute unit tests for new/modified code</step>
+        <step>Run integration tests if applicable</step>
+        <step>Test database operations and migrations</step>
+        <step>Validate UI components and user interactions</step>
+      </steps>
+    </phase>
+
+    <phase name="documentation">
+      <description>Update project knowledge base</description>
+      <steps>
+        <step>Update relevant files in notes/ directory</step>
+        <step>Document new features or changes</step>
+        <step>Update API documentation if applicable</step>
+        <step>Add examples to appropriate knowledge files</step>
+        <step>Ensure consistency with existing documentation</step>
+      </steps>
+    </phase>
+  </main_development_workflow>
+
+  <quality_assurance>
+    <principle name="zero_warnings_policy">
+      <description>Ensure no TypeScript errors, ESLint warnings, or build issues</description>
+      <tools>
+        <tool>npm run typecheck - Verify TypeScript compilation</tool>
+        <tool>npm run lint - Check code quality</tool>
+        <tool>npm run build - Validate production build</tool>
+      </tools>
+    </principle>
+
+    <principle name="testing_requirements">
+      <description>Follow test-first development approach</description>
+      <tools>
+        <tool>npm test - Run Jest unit tests</tool>
+        <tool>npm run test:e2e - Run Playwright E2E tests</tool>
+        <tool>npm run test:coverage - Check test coverage</tool>
+      </tools>
+    </principle>
+
+    <principle name="codacy_integration">
+      <description>Use Codacy for code quality analysis</description>
+      <tools>
+        <tool>codacy_cli_analyze - Run code analysis on modified files</tool>
+        <tool>codacy_get_file_issues - Check specific file issues</tool>
+        <tool>codacy_list_repository_issues - Review repository quality</tool>
+      </tools>
+      <workflow>
+        <step>Run analysis after file modifications</step>
+        <step>Address any issues found</step>
+        <step>Verify security compliance</step>
+        <step>Ensure performance standards met</step>
+      </workflow>
+    </principle>
+  </quality_assurance>
+
+  <completion_criteria>
+    <criterion>All TypeScript errors resolved</criterion>
+    <criterion>No ESLint warnings or errors</criterion>
+    <criterion>Unit tests pass (if applicable)</criterion>
+    <criterion>Integration tests pass (if applicable)</criterion>
+    <criterion>Production build succeeds</criterion>
+    <criterion>Codacy analysis shows no new issues</criterion>
+    <criterion>Documentation updated in memory bank</criterion>
+    <criterion>Changes follow project conventions and patterns</criterion>
+  </completion_criteria>
+</game_night_development_workflow>

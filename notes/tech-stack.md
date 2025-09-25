@@ -6,13 +6,13 @@ Game Night Central is built with modern web technologies for a robust, scalable 
 ## Core Technologies
 
 ### Framework & Runtime
-- **Next.js 14+** → React framework with App Router
+- **Next.js 15+** → React framework with App Router
 - **React 18+** → UI library
 - **TypeScript** → Type-safe JavaScript
 - **Node.js** → JavaScript runtime
 
 ### Styling & UI
-- **Tailwind CSS** → Utility-first CSS framework
+- **Tailwind CSS 4.1** → Utility-first CSS framework (CSS-first configuration)
 - **Shadcn UI** → Component library built on Radix UI
 - **Radix UI** → Low-level, accessible UI primitives
 - **Lucide React** → Icon library
@@ -76,7 +76,7 @@ Game Night Central is built with modern web technologies for a robust, scalable 
   "eslint": "^8.57.0",
   "eslint-config-next": "^14.2.5",
   "postcss": "^8.4.40",
-  "tailwindcss": "^3.4.7",
+  "tailwindcss": "^4.1.0",
   "typescript": "^5.5.4"
 }
 ```
@@ -106,7 +106,6 @@ Game Night Central is built with modern web technologies for a robust, scalable 
 
 ## Related Files
 - `package.json` - Dependencies and scripts
-- `tailwind.config.ts` - Tailwind configuration
 - `tsconfig.json` - TypeScript configuration
 - `components.json` - Shadcn configuration
 - `next.config.ts` - Next.js configuration

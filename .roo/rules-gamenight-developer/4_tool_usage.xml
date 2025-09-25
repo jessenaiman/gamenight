@@ -1,0 +1,354 @@
+<gamenight_tool_usage_guidelines>
+  <overview>
+    Specific guidelines for using development tools effectively within the Game Night Central project context.
+    These guidelines ensure consistent, high-quality development practices and integration with project requirements.
+  </overview>
+
+  <tool_priorities>
+    <priority level="critical">
+      <tool>codebase_search</tool>
+      <when>Always use first for any exploration of existing code</when>
+      <why>Semantic search finds relevant patterns and implementations more effectively than keyword search</why>
+      <examples>
+        <example>Search for authentication patterns: "user login session management"</example>
+        <example>Search for API patterns: "create event endpoint"</example>
+        <example>Search for component patterns: "form validation error handling"</example>
+      </examples>
+    </priority>
+
+    <priority level="high">
+      <tool>read_file</tool>
+      <when>After identifying relevant files with codebase_search</when>
+      <why>Understand the full context and implementation details</why>
+    </priority>
+
+    <priority level="high">
+      <tool>apply_diff</tool>
+      <when>Making precise modifications to existing files</when>
+      <why>Surgical edits maintain code quality and reduce risk</why>
+    </priority>
+
+    <priority level="medium">
+      <tool>search_files</tool>
+      <when>Looking for specific patterns or text across the codebase</when>
+      <why>Efficient for regex-based searches and pattern matching</why>
+    </priority>
+  </tool_priorities>
+
+  <development_workflow_tools>
+    <tool_group name="project_analysis">
+      <tool name="list_files">
+        <purpose>Understand project structure and organization</purpose>
+        <best_practices>
+          <practice>Use recursive=true for complete directory structure</practice>
+          <practice>Focus on src/ directory for main application code</practice>
+          <practice>Check components/ and app/ directories for UI structure</practice>
+        </best_practices>
+        <examples>
+          <example>list_files path="src/app" recursive=true</example>
+          <example>list_files path="src/components" recursive=false</example>
+        </examples>
+      </tool>
+
+      <tool name="list_code_definition_names">
+        <purpose>Get overview of classes, functions, and other definitions</purpose>
+        <best_practices>
+          <practice>Use for understanding codebase structure</practice>
+          <practice>Focus on src/ directory for main definitions</practice>
+          <practice>Useful for finding components and API functions</practice>
+        </best_practices>
+        <examples>
+          <example>list_code_definition_names path="src/"</example>
+          <example>list_code_definition_names path="src/components/"</example>
+        </examples>
+      </tool>
+    </tool_group>
+
+    <tool_group name="code_modification">
+      <tool name="apply_diff">
+        <purpose>Make precise, targeted changes to existing files</purpose>
+        <best_practices>
+          <practice>Always read the file first to ensure exact content matching</practice>
+          <practice>Use multiple search-replace blocks for multiple changes in one file</practice>
+          <practice>Include sufficient context to uniquely identify the target section</practice>
+          <practice>Make changes as atomic as possible</practice>
+        </best_practices>
+        <examples>
+          <example>
+            <description>Adding a new API endpoint</description>
+            <code>
+              apply_diff
+              <path>src/app/api/events/route.ts</path>
+              <diff>
+                <content><![CDATA[
+                  export async function GET(request: NextRequest) {
+                    // Implementation here
+                  }
+                ]]></content>
+              </diff>
+            </code>
+          </example>
+        </examples>
+      </tool>
+
+      <tool name="write_to_file">
+        <purpose>Create new files or complete rewrites</purpose>
+        <best_practices>
+          <practice>Use only when creating entirely new files</practice>
+          <practice>Provide complete file content including imports</practice>
+          <practice>Follow project conventions for file structure</practice>
+          <practice>Include proper TypeScript types and interfaces</practice>
+        </best_practices>
+      </tool>
+    </tool_group>
+
+    <tool_group name="quality_assurance">
+      <tool name="execute_command">
+        <purpose>Run development commands and scripts</purpose>
+        <best_practices>
+          <practice>Run type checking before and after changes</practice>
+          <practice>Execute linting to ensure code quality</practice>
+          <practice>Use test commands to validate functionality</practice>
+          <practice>Run build command to verify production readiness</practice>
+        </best_practices>
+        <examples>
+          <example>npm run typecheck</example>
+          <example>npm run lint</example>
+          <example>npm test</example>
+          <example>npm run build</example>
+        </examples>
+      </tool>
+
+      <tool name="codacy_cli_analyze">
+        <purpose>Run code quality analysis with Codacy</purpose>
+        <best_practices>
+          <practice>Run after file modifications to check for issues</practice>
+          <practice>Address any security or quality issues found</practice>
+          <practice>Use specific file paths when analyzing targeted changes</practice>
+          <practice>Verify no new issues introduced by changes</practice>
+        </best_practices>
+        <examples>
+          <example>codacy_cli_analyze rootPath="/home/dice-wizard/dev/gamenight"</example>
+          <example>codacy_cli_analyze rootPath="/home/dice-wizard/dev/gamenight" file="src/app/api/events/route.ts"</example>
+        </examples>
+      </tool>
+    </tool_group>
+  </development_workflow_tools>
+
+  <memory_bank_integration>
+    <tool_group name="knowledge_management">
+      <tool name="read_file">
+        <purpose>Access project knowledge and documentation</purpose>
+        <best_practices>
+          <practice>Read relevant notes/ files before starting new features</practice>
+          <practice>Check docs/ directory for project specifications</practice>
+          <practice>Update memory bank after implementing new features</practice>
+          <practice>Use search to find relevant existing knowledge</practice>
+        </best_practices>
+        <examples>
+          <example>read_file path="notes/project-plan.md"</example>
+          <example>read_file path="notes/gamenight-features.md"</example>
+          <example>read_file path="docs/data-structures.md"</example>
+        </examples>
+      </tool>
+
+      <tool name="write_to_file">
+        <purpose>Update project knowledge and documentation</purpose>
+        <best_practices>
+          <practice>Document new features in appropriate notes/ files</practice>
+          <practice>Follow existing documentation structure and format</practice>
+          <practice>Include examples and usage patterns</practice>
+          <practice>Update related documentation when making changes</practice>
+        </best_practices>
+      </tool>
+    </tool_group>
+  </memory_bank_integration>
+
+  <testing_integration>
+    <tool_group name="test_execution">
+      <tool name="execute_command">
+        <purpose>Run test suites and validate functionality</purpose>
+        <best_practices>
+          <practice>Run tests before making changes to establish baseline</practice>
+          <practice>Execute relevant tests after implementing features</practice>
+          <practice>Use specific test commands for targeted testing</practice>
+          <practice>Run full test suite before completing major changes</practice>
+        </best_practices>
+        <examples>
+          <example>npm test -- --testPathPattern="event" --watchAll=false</example>
+          <example>npm run test:e2e -- --grep="event creation"</example>
+          <example>npm run test:coverage</example>
+        </examples>
+      </tool>
+    </tool_group>
+  </testing_integration>
+
+  <debugging_tools>
+    <tool_group name="troubleshooting">
+      <tool name="execute_command">
+        <purpose>Debug and troubleshoot development issues</purpose>
+        <best_practices>
+          <practice>Use development server for real-time debugging</practice>
+          <practice>Check logs and error messages carefully</practice>
+          <practice>Use database tools for data-related issues</practice>
+          <practice>Test individual components in isolation</practice>
+        </best_practices>
+        <examples>
+          <example>npm run dev</example>
+          <example>npm run db:studio</example>
+          <example>npx playwright test --debug</example>
+        </examples>
+      </tool>
+
+      <tool name="read_file">
+        <purpose>Examine code for debugging purposes</purpose>
+        <best_practices>
+          <practice>Check error locations and related files</practice>
+          <practice>Look for similar patterns in existing code</practice>
+          <practice>Verify imports and dependencies</practice>
+          <practice>Check TypeScript types and interfaces</practice>
+        </best_practices>
+      </tool>
+    </tool_group>
+  </debugging_tools>
+
+  <ai_integration>
+    <tool_group name="ai_features">
+      <tool name="read_file">
+        <purpose>Understand AI functionality implementation</purpose>
+        <best_practices>
+          <practice>Review AI-related files in src/ai/ directory</practice>
+          <practice>Understand Genkit integration patterns</practice>
+          <practice>Check AI feature documentation in notes/</practice>
+          <practice>Test AI features after modifications</practice>
+        </best_practices>
+        <examples>
+          <example>read_file path="src/ai/genkit.ts"</example>
+          <example>read_file path="src/ai/dev.ts"</example>
+          <example>read_file path="notes/ai-functionality.md"</example>
+        </examples>
+      </tool>
+
+      <tool name="execute_command">
+        <purpose>Test and run AI features</purpose>
+        <best_practices>
+          <practice>Use Genkit development commands for AI testing</practice>
+          <practice>Test AI functionality in development environment</practice>
+          <practice>Verify AI responses and data processing</practice>
+          <practice>Monitor AI feature performance</practice>
+        </best_practices>
+        <examples>
+          <example>npm run genkit:dev</example>
+          <example>npm run genkit:watch</example>
+        </examples>
+      </tool>
+    </tool_group>
+  </ai_integration>
+
+  <deployment_integration>
+    <tool_group name="build_and_deploy">
+      <tool name="execute_command">
+        <purpose>Prepare and validate code for deployment</purpose>
+        <best_practices>
+          <practice>Run full quality checks before deployment</practice>
+          <practice>Verify production build succeeds</practice>
+          <practice>Test all critical functionality</practice>
+          <practice>Ensure no security vulnerabilities</practice>
+        </best_practices>
+        <examples>
+          <example>npm run quality</example>
+          <example>npm run build</example>
+          <example>npm run test:e2e</example>
+        </examples>
+      </tool>
+    </tool_group>
+  </deployment_integration>
+
+  <tool_combination_patterns>
+    <pattern name="feature_implementation">
+      <description>Complete workflow for implementing new features</description>
+      <sequence>
+        <step>
+          <tool>codebase_search</tool>
+          <purpose>Research existing similar implementations</purpose>
+        </step>
+        <step>
+          <tool>read_file</tool>
+          <purpose>Understand current patterns and conventions</purpose>
+        </step>
+        <step>
+          <tool>apply_diff</tool>
+          <purpose>Implement the feature following established patterns</purpose>
+        </step>
+        <step>
+          <tool>execute_command</tool>
+          <purpose>Run type checking and linting</purpose>
+        </step>
+        <step>
+          <tool>execute_command</tool>
+          <purpose>Execute relevant tests</purpose>
+        </step>
+        <step>
+          <tool>codacy_cli_analyze</tool>
+          <purpose>Verify code quality standards</purpose>
+        </step>
+      </sequence>
+    </pattern>
+
+    <pattern name="bug_fixing">
+      <description>Systematic approach to fixing bugs</description>
+      <sequence>
+        <step>
+          <tool>read_file</tool>
+          <purpose>Examine the problematic code</purpose>
+        </step>
+        <step>
+          <tool>execute_command</tool>
+          <purpose>Reproduce the issue if possible</purpose>
+        </step>
+        <step>
+          <tool>apply_diff</tool>
+          <purpose>Apply the fix</purpose>
+        </step>
+        <step>
+          <tool>execute_command</tool>
+          <purpose>Verify the fix with tests</purpose>
+        </step>
+        <step>
+          <tool>codacy_cli_analyze</tool>
+          <purpose>Ensure no new issues introduced</purpose>
+        </step>
+      </sequence>
+    </pattern>
+
+    <pattern name="refactoring">
+      <description>Safe refactoring with quality assurance</description>
+      <sequence>
+        <step>
+          <tool>codebase_search</tool>
+          <purpose>Find all instances of code to refactor</purpose>
+        </step>
+        <step>
+          <tool>read_file</tool>
+          <purpose>Understand the current implementation</purpose>
+        </step>
+        <step>
+          <tool>apply_diff</tool>
+          <purpose>Apply refactoring changes</purpose>
+        </step>
+        <step>
+          <tool>execute_command</tool>
+          <purpose>Run full test suite</purpose>
+        </step>
+        <step>
+          <tool>execute_command</tool>
+          <purpose>Verify build still works</purpose>
+        </step>
+        <step>
+          <tool>codacy_cli_analyze</tool>
+          <purpose>Ensure code quality maintained</purpose>
+        </step>
+      </sequence>
+    </pattern>
+  </tool_combination_patterns>
+</gamenight_tool_usage_guidelines>

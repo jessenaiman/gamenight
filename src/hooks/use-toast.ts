@@ -15,6 +15,7 @@ type ToasterToast = ToastProps & {
   action?: ToastActionElement;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const actionTypes = {
   ADD_TOAST: 'ADD_TOAST',
   UPDATE_TOAST: 'UPDATE_TOAST',
@@ -126,7 +127,10 @@ export const reducer = (state: State, action: Action): State => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const listeners: Array<(state: State) => void> = [];
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 let memoryState: State = { toasts: [] };
 
@@ -169,7 +173,7 @@ function toast({ ...props }: Toast) {
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState);
+  const [, setState] = React.useState<State>(memoryState);
 
   React.useEffect(() => {
     listeners.push(setState);
@@ -179,10 +183,10 @@ function useToast() {
         listeners.splice(index, 1);
       }
     };
-  }, [state]);
+  }, []);
 
   return {
-    ...state,
+    toasts: memoryState.toasts,
     toast,
     dismiss: (toastId?: string) => dispatch({ type: 'DISMISS_TOAST', toastId }),
   };
