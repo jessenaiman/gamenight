@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   roots: ['<rootDir>/src', '<rootDir>/tests'],
@@ -35,4 +35,4 @@ module.exports = {
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   testTimeout: 10000,
-}
+};
