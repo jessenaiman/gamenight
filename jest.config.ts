@@ -1,5 +1,13 @@
-export default {
-  preset: 'ts-jest',
+import type { Config } from 'jest'
+import nextJest from 'next/jest.js'
+
+const createJestConfig = nextJest({
+  dir: './',
+})
+
+const config: Config = {
+  coverageProvider: 'v8',
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/tests/e2e/'],
   testEnvironment: 'jsdom',
   roots: ['<rootDir>/src', '<rootDir>/tests'],
   testMatch: [
@@ -7,9 +15,6 @@ export default {
     '**/?(*.)+(spec|test).+(ts|tsx|js)',
     '!tests/e2e/**',
   ],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-  },
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
@@ -35,4 +40,6 @@ export default {
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   testTimeout: 10000,
-};
+}
+
+export default createJestConfig(config)

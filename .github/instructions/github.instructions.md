@@ -2,7 +2,9 @@
 
 ## Issue Workflow: Best Practices
 
+
 ### 1. Always Work From an Issue
+
 - Every feature, bugfix, or documentation change should start with a GitHub issue.
 - Use issues to track requirements, discussion, and acceptance criteria.
 
